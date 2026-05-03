@@ -1,0 +1,143 @@
+#cnca-primary-navigation {
+  background-color: var(--primary-color);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#cnca-primary-navigation > #cnca-menu-toggle {
+  width: 70px;
+  background-color: var(--primary-color);
+  border: 1px solid white;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+
+#cnca-primary-navigation > #cnca-menu-toggle span {
+  display: block;
+  width: 60%;
+  height: 2px;
+  background-color: white;
+  border-radius: 3px;
+}
+
+#cnca-primary-navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#cnca-primary-navigation > ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+body.admin-bar #cnca-primary-navigation > ul {
+  top: 32px;
+}
+
+#cnca-primary-navigation > ul > li > a {
+  display: block;
+  padding: 15px;
+  transition: all 0.5s ease;
+}
+
+#cnca-primary-navigation > ul > li.menu-item-has-children > a::after {
+  content: " ▼";
+  display: inline-block;
+  font-size: 12px;
+  margin: -4px 0 0 8px;
+  transform: translateY(-2px);
+}
+
+#cnca-primary-navigation > ul > li:hover > a,
+#cnca-primary-navigation > ul > li.current-menu-item > a {
+  background-color: var(--secondary-color);
+}
+
+#cnca-primary-navigation > ul > li:hover > ul {
+  background-color: var(--primary-color);
+  display: block;
+  border-radius: 0 0 12px 12px;
+  position: absolute;
+  box-shadow: 8px 8px 0 0 #cccccc66;
+  overflow: hidden;
+}
+
+#cnca-primary-navigation > ul > li:hover > ul > li > a {
+  display: block;
+  padding: 16px 20px;
+  transition: all 0.3s ease;
+}
+
+#cnca-primary-navigation > ul > li:hover > ul > li:last-child > a {
+  padding-bottom: 18px;
+}
+
+#cnca-primary-navigation > ul > li:hover > ul > li:hover > a {
+  background-color: var(--secondary-color);
+}
+
+#cnca-primary-navigation > ul a {
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+#cnca-primary-navigation > ul ul {
+  display: none;
+}
+
+#cnca-logo {
+  background-image: url("../img/background.svg");
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: 100% 50%;
+  display: flex;
+  justify-content: center;
+}
+
+#cnca-logo img {
+  background-color: white;
+  border-radius: 50%;
+  height: auto;
+  max-width: 100%;
+  width: 94px;
+}
+
+@media screen and (min-width: 768px) {
+  #cnca-primary-navigation {
+    padding: 0;
+  }
+
+  #cnca-primary-navigation > #cnca-menu-toggle {
+    display: none;
+  }
+
+  #cnca-primary-navigation > ul {
+    flex-direction: row;
+  }
+
+  #cnca-logo {
+    padding: 16px 0;
+  }
+
+  #cnca-logo img {
+    width: 188px;
+  }
+}

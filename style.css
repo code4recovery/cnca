@@ -1,0 +1,38 @@
+/*
+Theme Name: CNCA
+Author: Code for Recovery
+Author URI: https://cnca06.org
+Description: A WordPress theme for A.A. service entities
+Version: 1.0
+Tested up to: 5.4
+*/
+
+:root {
+  --primary-color: #5ab0e2;
+  --secondary-color: #f48700;
+  --background-color: #f5f9f8;
+  --link-color: #3d7799;
+  --text-color: #333;
+  --font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  margin: 0;
+}
+
+#cnca-container {
+  background-color: white;
+  margin: 0 auto;
+  max-width: 1200px;
+  position: relative;
+}
+
+#cnca-footer {
+  background-color: var(--background-color);
+  font-size: 14px;
+  padding: 40px 20px;
+  text-align: center;
+}
