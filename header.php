@@ -13,11 +13,13 @@
     <div id="cnca-container">
 
         <nav id="cnca-primary-navigation" role="navigation">
-            <button id="cnca-menu-toggle" aria-label="Toggle Menu">
+            <input type="checkbox" id="cnca-menu-toggle">
+
+            <label for="cnca-menu-toggle">
                 <span></span>
                 <span></span>
                 <span></span>
-            </button>
+            </label>
 
             <?php wp_nav_menu([
                 'container' => false,

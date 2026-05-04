@@ -1,10 +1,20 @@
 <?php
 
+add_theme_support('appearance-tools');
+add_theme_support('responsive-embeds');
+
+add_theme_support('editor-color-palette', [
+    [
+        'name' => 'very light gray',
+        'slug' => 'very-light-gray',
+        'color' => '#eee',
+    ],
+]);
+
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('cnca', get_template_directory_uri() . '/style.css');
     wp_enqueue_style('cnca-header', get_template_directory_uri() . '/css/header.css');
     wp_enqueue_style('cnca-content', get_template_directory_uri() . '/css/content.css');
-    wp_enqueue_script('cnca-script', get_template_directory_uri() . '/script.js', [], null, true);
 });
 
 add_action('after_setup_theme', function () {

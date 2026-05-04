@@ -1,62 +1,107 @@
 #cnca-content {
-  display: flex;
+  display: grid;
   gap: 60px;
   padding: 0 20px 80px;
-  flex-direction: column;
-}
+  grid-template-columns: 1fr;
 
-#cnca-content main {
-  flex: 5;
-  line-height: 1.5;
-  font-size: 18px;
-}
+  a {
+    color: var(--link-color);
+    font-weight: 500;
+    &:hover {
+      color: var(--secondary-color);
+    }
+  }
 
-#cnca-content main h1 {
-  font-size: 36px;
-  font-weight: 300;
-  margin: 0 0 24px;
-}
+  form {
+    input,
+    button[type="submit"] {
+      border-radius: 4px;
+      font-size: 16px;
+      padding: 10px;
+      width: 100%;
+    }
+    input,
+    select,
+    textarea {
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+    }
+    button[type="submit"] {
+      background-color: var(--primary-color);
+      border: none;
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+      &:hover {
+        background-color: var(--secondary-color);
+      }
+    }
+  }
 
-#cnca-content a {
-  color: var(--link-color);
-  font-weight: 500;
-}
+  main {
+    line-height: 1.5;
+    font-size: 18px;
 
-#cnca-content a:hover {
-  color: var(--secondary-color);
-}
+    h1 {
+      font-size: 36px;
+      font-weight: 300;
+      margin: 0 0 24px;
+    }
 
-#cnca-content aside {
-  flex: 2;
-  line-height: 1.3;
-  display: flex;
-  flex-direction: column;
-  gap: 36px;
-}
+    iframe {
+      max-width: 100%;
+    }
 
-#cnca-content aside .cnca-widget form#cnca-search input {
-  font-size: 16px;
-  padding: 10px;
-  width: 100%;
-  border: 1px solid #ccc;
-}
+    .edit-link {
+      display: none;
+    }
+  }
 
-#cnca-content aside ul.menu {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 0;
-  padding-left: 16px;
-}
+  aside {
+    line-height: 1.3;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
 
-#cnca-content aside .cnca-widget .tribe-events,
-#cnca-content aside .cnca-widget .tribe-common-l-container {
-  padding: 0 !important;
+    ul.menu {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 0;
+      padding-left: 16px;
+    }
+
+    form#cnca-search {
+      position: relative;
+      &:after {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='%23666' class='size-6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z' /%3E%3C/svg%3E%0A");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 18px 18px;
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin: -9px 0 0 9px;
+        width: 18px;
+        height: 18px;
+      }
+      input {
+        padding-left: 32px;
+      }
+    }
+
+    .tribe-events,
+    .tribe-common-l-container {
+      padding: 0 !important;
+    }
+  }
 }
 
 @media screen and (min-width: 768px) {
   #cnca-content {
-    flex-direction: row;
+    grid-template-columns: 1fr 300px;
     padding: 0 60px 80px;
   }
 }
