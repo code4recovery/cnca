@@ -99,12 +99,17 @@ body.admin-bar #cnca-primary-navigation {
 }
 
 #cnca-logo {
-  background-image: url("../img/background.svg");
-  background-position: top center;
-  background-repeat: no-repeat;
-  background-size: 100% 50%;
   display: flex;
   justify-content: center;
+  position: relative;
+
+  svg {
+    bottom: 50%;
+    color: var(--primary-color);
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
 
   img {
     background-color: white;
@@ -112,6 +117,7 @@ body.admin-bar #cnca-primary-navigation {
     height: auto;
     max-width: 100%;
     width: 94px;
+    z-index: 1;
   }
 }
 
