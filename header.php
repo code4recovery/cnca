@@ -16,10 +16,10 @@
             <input type="checkbox" id="cnca-menu-toggle">
 
             <label for="cnca-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
                 <span class="screen-reader-text">Menu</span>
-                <span></span>
-                <span></span>
-                <span></span>
             </label>
 
             <?php wp_nav_menu([
@@ -40,5 +40,7 @@
                     d="M766.1,28.9c-200-57.5-266,65.5-395.1,19.5C242,1.8,242,5.4,184.8,20.6C128,35.8,132.3,44.9,89.9,52.5C28.6,63.7,0,0,0,0 h1000c0,0-9.9,40.9-83.6,48.1S829.6,47,766.1,28.9z">
                 </path>
             </svg>
-            <img src="<?php echo get_template_directory_uri() ?>/logo.png" width="799" height="798" alt="CNCA Logo">
+            <a href="<?php echo home_url() ?>">
+                <img src="<?php echo get_template_directory_uri() ?>/logo.png" width="799" height="798" alt="CNCA Logo">
+            </a>
         </div>

@@ -111,13 +111,21 @@ body.admin-bar #cnca-primary-navigation {
     width: 100%;
   }
 
-  img {
-    background-color: white;
-    border-radius: 50%;
-    height: auto;
-    max-width: 100%;
-    width: 94px;
+  a {
+    cursor: pointer;
+    display: block;
     z-index: 1;
+    img {
+      background-color: white;
+      border-radius: 50%;
+      height: auto;
+      max-width: 100%;
+      transition: all 0.3s ease;
+      width: 94px;
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
   }
 }
 
@@ -161,7 +169,7 @@ body.admin-bar #cnca-primary-navigation {
 
   #cnca-logo {
     padding: 16px 0;
-    img {
+    a img {
       width: 188px;
     }
   }
