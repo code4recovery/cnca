@@ -105,7 +105,8 @@
 
     .simcal-calendar {
       padding: 0;
-      > .simcal-align-right {
+      > .simcal-align-right,
+      .simcal-event-description {
         display: none;
       }
       dt {
@@ -114,22 +115,38 @@
       ul.simcal-events {
         margin: 0;
         padding: 0;
-        a {
-          color: inherit;
-          display: block;
-          font-size: 14px;
-          padding: 16px 8px;
-          text-decoration: none;
-          &:hover {
-            background-color: #f5f5f5;
-          }
-        }
-        p,
-        li {
+        li.simcal-event {
           margin: 0;
-        }
-        li + li {
-          border-top: 1px solid #ddd;
+          padding: 16px 8px;
+
+          p {
+            font-size: 14px;
+            margin: 0;
+            &:last-child {
+              display: none;
+            }
+          }
+
+          & + li {
+            border-top: 1px solid #ddd;
+          }
+
+          &:not(.active):hover {
+            background-color: #f5f5f5;
+            cursor: pointer;
+          }
+
+          &.active {
+            .simcal-event-description {
+              border-left: 3px solid #eee;
+              padding-left: 16px;
+              display: block;
+              margin-top: 8px;
+            }
+            p:last-child {
+              display: block;
+            }
+          }
         }
       }
     }
