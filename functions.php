@@ -1,6 +1,6 @@
 <?php
 
-define('CNCA_VERSION', '1.0.0');
+const CNCA_VERSION = '1.0.4';
 
 add_theme_support('appearance-tools');
 add_theme_support('responsive-embeds');
@@ -15,8 +15,6 @@ add_theme_support('editor-color-palette', [
 
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('cnca', get_template_directory_uri() . '/style.css', [], CNCA_VERSION);
-    wp_enqueue_style('cnca-header', get_template_directory_uri() . '/css/header.css', [], CNCA_VERSION);
-    wp_enqueue_style('cnca-content', get_template_directory_uri() . '/css/content.css', [], CNCA_VERSION);
     wp_enqueue_script('cnca', get_template_directory_uri() . '/script.js', [], CNCA_VERSION, true);
 });
 

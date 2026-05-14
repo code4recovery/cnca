@@ -1,4 +1,4 @@
-<footer id="cnca-footer">
+<footer>
     &copy;
     <?php echo date('Y') ?>
     California Northern Coastal Area 06. All rights reserved.

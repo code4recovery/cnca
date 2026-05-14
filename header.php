@@ -10,9 +10,9 @@
 
 <body <?php body_class() ?>>
 
-    <div id="cnca-container">
+    <div id="cnca">
 
-        <nav id="cnca-primary-navigation" role="navigation">
+        <nav role="navigation">
             <input type="checkbox" id="cnca-menu-toggle">
 
             <label for="cnca-menu-toggle">
@@ -28,7 +28,7 @@
             ]) ?>
         </nav>
 
-        <div id="cnca-logo">
+        <header>
             <svg viewBox="0 0 1000 100" preserveAspectRatio="none" fill="currentColor">
                 <path opacity="0.33"
                     d="M473,67.3c-203.9,88.3-263.1-34-320.3,0C66,119.1,0,59.7,0,59.7V0h1000v59.7 c0,0-62.1,26.1-94.9,29.3c-32.8,3.3-62.8-12.3-75.8-22.1C806,49.6,745.3,8.7,694.9,4.7S492.4,59,473,67.3z">
@@ -43,4 +43,4 @@
             <a href="<?php echo home_url() ?>">
                 <img src="<?php echo get_template_directory_uri() ?>/logo.png" width="799" height="798" alt="CNCA Logo">
             </a>
-        </div>
+        </header>
