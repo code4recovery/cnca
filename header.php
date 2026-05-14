@@ -19,7 +19,9 @@
                 <span></span>
                 <span></span>
                 <span></span>
-                <span class="screen-reader-text">Menu</span>
+                <span class="screen-reader-text">
+                    <?php _e('Menu', 'cnca') ?>
+                </span>
             </label>
 
             <?php wp_nav_menu([
@@ -41,6 +43,6 @@
                 </path>
             </svg>
             <a href="<?php echo home_url() ?>">
-                <img src="<?php echo get_template_directory_uri() ?>/logo.png" width="799" height="798" alt="CNCA Logo">
+                <img src="<?php echo get_template_directory_uri() ?>/logo.png" width="799" height="798" alt="<?php esc_attr_e('CNCA Logo', 'cnca') ?>">
             </a>
         </header>

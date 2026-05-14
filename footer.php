@@ -1,7 +1,9 @@
 <footer>
-    &copy;
-    <?php echo date('Y') ?>
-    California Northern Coastal Area 06. All rights reserved.
+    <?php echo sprintf(
+        // translators: %s is the current year
+        __('&copy; %s California Northern Coastal Area 06. All rights reserved.', 'cnca'),
+        date('Y')
+    ) ?>
 </footer>
 
 </div>
