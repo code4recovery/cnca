@@ -17,6 +17,15 @@
   --font-family: ui-sans-serif, system-ui, sans-serif;
 }
 
+html {
+  &[lang^="en"] .es {
+    display: none;
+  }
+  &[lang^="es"] .en {
+    display: none;
+  }
+}
+
 body {
   background-color: var(--background-color);
   color: var(--text-color);
