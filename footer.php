@@ -1,9 +1,5 @@
 <footer>
-    <?php echo sprintf(
-        // translators: %s is the current year
-        __('&copy; %s California Northern Coastal Area 06. All rights reserved.', 'cnca'),
-        date('Y')
-    ) ?>
+    <?php dynamic_sidebar('cnca-footer') ?>
 </footer>
 
 </div>

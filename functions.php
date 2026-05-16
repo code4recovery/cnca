@@ -1,6 +1,6 @@
 <?php
 
-const CNCA_VERSION = '1.0.4';
+const CNCA_VERSION = '1.0.5';
 
 add_theme_support('appearance-tools');
 add_theme_support('responsive-embeds');
@@ -25,14 +25,16 @@ add_action('enqueue_block_editor_assets', function () {
 });
 
 add_action('widgets_init', function () {
-    register_sidebar([
-        'name' => 'Sidebar',
-        'id' => 'cnca-sidebar',
-        'before_widget' => '<div class="cnca-widget">',
-        'after_widget' => '</div>',
-        'before_title' => '<h2 class="cnca-widget-title">',
-        'after_title' => '</h2>',
-    ]);
+    foreach (['cnca-sidebar' => 'Sidebar', 'cnca-footer' => 'Footer'] as $id => $name) {
+        register_sidebar([
+            'name' => $name,
+            'id' => $id,
+            'before_widget' => '<div>',
+            'after_widget' => '</div>',
+            'before_title' => '<h2>',
+            'after_title' => '</h2>',
+        ]);
+    }
 });
 
 add_action('wp_enqueue_scripts', function () {

@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CNCA 1.0.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/cnca\n"
-"POT-Creation-Date: 2026-05-14T15:15:22+00:00\n"
-"PO-Revision-Date: 2026-05-14 08:17-0700\n"
+"POT-Creation-Date: 2026-05-16T13:52:11+00:00\n"
+"PO-Revision-Date: 2026-05-16 06:53-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -23,8 +23,7 @@ msgstr "CNCA"
 #. Description of the theme
 #: style.css
 msgid "A WordPress theme for California Northern Coastal Area 06"
-msgstr ""
-"Un tema de WordPress para la Área costera del norte de California 06"
+msgstr "Un tema de WordPress para la Área costera del norte de California 06"
 
 #. Author of the theme
 #: style.css
@@ -35,14 +34,6 @@ msgstr "Code for Recovery"
 #: style.css
 msgid "https://www.cnca06.org"
 msgstr "https://www.cnca06.org"
-
-#. translators: %s is the current year
-#: footer.php:4
-#, php-format
-msgid "&copy; %s California Northern Coastal Area 06. All rights reserved."
-msgstr ""
-"&copy; %s  Área costera del norte de California 06. Todos los derechos "
-"reservados."
 
 #: header.php:23
 msgid "Menu"
@@ -59,3 +50,7 @@ msgstr "Buscar:"
 #: searchform.php:6
 msgid "Search this site..."
 msgstr "Buscar en este sitio…"
+
+#, php-format
+#~ msgid "&copy; %s California Northern Coastal Area 06. All rights reserved."
+#~ msgstr "&copy; %s  Área costera del norte de California 06. Todos los derechos reservados."

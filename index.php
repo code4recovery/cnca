@@ -14,7 +14,7 @@ get_header();
         } ?>
     </section>
     <aside>
-        <?php dynamic_sidebar('cnca-sidebar'); ?>
+        <?php dynamic_sidebar('cnca-sidebar') ?>
     </aside>
 </main>
 <?php

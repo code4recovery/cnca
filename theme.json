@@ -1,0 +1,13 @@
+{
+  "version": 3,
+  "settings": {
+    "layout": {
+      "contentSize": "50rem",
+      "wideSize": "75rem"
+    },
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
+  }
+}
