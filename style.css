@@ -69,21 +69,31 @@ body {
       padding: 0;
     }
 
+    a {
+      color: white;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-align: center;
+      text-decoration: none;
+    }
+
     > ul {
       display: none;
       flex-direction: column;
 
       a {
-        display: flex;
+        display: block;
         padding: 0.75rem 1rem;
         transition: all 0.5s ease;
       }
 
       > li > a {
         align-items: center;
+        display: flex;
         gap: 0.5rem;
         justify-content: center;
         min-height: calc(var(--nav-icon-size) + 1.5rem);
+        text-transform: uppercase;
       }
 
       li:hover > a,
@@ -106,15 +116,6 @@ body {
           height: var(--nav-icon-size);
           width: var(--nav-icon-size);
         }
-      }
-
-      a {
-        color: white;
-        font-weight: bold;
-        letter-spacing: 1px;
-        text-align: center;
-        text-decoration: none;
-        text-transform: uppercase;
       }
     }
 
@@ -333,12 +334,8 @@ body {
         padding-left: 1rem;
       }
 
-      .tribe-events,
-      .tribe-common-l-container {
-        padding: 0 !important;
-      }
-
       .simcal-calendar {
+        max-width: calc(100vw - 2rem);
         padding: 0;
         > .simcal-align-right,
         .simcal-event-description + br {
@@ -407,6 +404,10 @@ body {
   @media screen and (min-width: 768px) {
     > nav {
       padding: 0;
+
+      a {
+        text-transform: uppercase;
+      }
 
       label {
         display: none;

@@ -1,6 +1,6 @@
 <?php
 
-const CNCA_VERSION = '1.0.5';
+const CNCA_VERSION = '1.0.6';
 
 add_theme_support('appearance-tools');
 add_theme_support('responsive-embeds');
