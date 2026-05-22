@@ -41,3 +41,7 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('cnca', get_template_directory_uri() . '/style.css', [], CNCA_VERSION);
     wp_enqueue_script('cnca', get_template_directory_uri() . '/script.js', [], CNCA_VERSION, true);
 });
+
+add_action('wp_head', function () {
+    echo '<link rel="icon" href="' . get_template_directory_uri() . '/logo.png" type="image/png">';
+});
