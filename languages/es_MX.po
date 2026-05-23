@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CNCA 1.0.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/cnca\n"
-"POT-Creation-Date: 2026-05-17T14:54:36+00:00\n"
-"PO-Revision-Date: 2026-05-17 07:56-0700\n"
+"POT-Creation-Date: 2026-05-23T17:30:54+00:00\n"
+"PO-Revision-Date: 2026-05-23 10:31-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -34,6 +34,19 @@ msgstr "Code for Recovery"
 #: style.css
 msgid "https://www.cnca06.org"
 msgstr "https://www.cnca06.org"
+
+#: 404.php:16
+msgid "Page not found"
+msgstr "Página no encontrada"
+
+#: 404.php:18
+#, php-format
+msgid ""
+"No page was found at this address. Please try a search or <a "
+"href=\"%s\">contact the Web Committee</a>."
+msgstr ""
+"No se ha encontrado ninguna página en esta dirección. Intenta realizar una "
+"búsqueda o <a href=\"%s\">ponte en contacto con el Comité Web</a>."
 
 #: header.php:23
 msgid "Menu"
