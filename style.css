@@ -293,6 +293,27 @@ body {
         }
       }
 
+      form.wpforms-form {
+        div.wpforms-field-phone {
+          max-width: 15rem;
+        }
+        div.wpforms-field-checkbox {
+          max-width: 20rem;
+          li {
+            align-items: center;
+            display: flex;
+            gap: 0.5rem;
+            input {
+              margin: 0;
+              width: auto;
+            }
+            label {
+              flex: 1;
+            }
+          }
+        }
+      }
+
       article + article {
         border-top: 1px solid var(--border-color);
         margin-top: 2rem;
