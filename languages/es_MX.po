@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CNCA 1.0.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/cnca\n"
-"POT-Creation-Date: 2026-05-23T17:30:54+00:00\n"
-"PO-Revision-Date: 2026-05-23 10:31-0700\n"
+"POT-Creation-Date: 2026-05-25T16:41:08+00:00\n"
+"PO-Revision-Date: 2026-05-25 09:42-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -55,6 +55,34 @@ msgstr "Menú"
 #: header.php:46
 msgid "CNCA Logo"
 msgstr "Logotipo de la CNCA"
+
+#: inc/actions.php:80
+msgid "District"
+msgstr "Distrito"
+
+#: inc/actions.php:81
+msgid "An error occurred while searching."
+msgstr "Se ha producido un error durante la búsqueda."
+
+#: inc/actions.php:82
+msgid "Group ID"
+msgstr "ID Grupo"
+
+#: inc/actions.php:83
+msgid "Location"
+msgstr "Ubicación"
+
+#: inc/actions.php:84
+msgid "No groups found."
+msgstr "No se encontraron grupos."
+
+#: inc/shortcodes.php:6
+msgid "Search groups..."
+msgstr "Buscar grupos de ofertas grupales..."
+
+#: inc/shortcodes.php:7
+msgid "Search"
+msgstr "Buscar"
 
 #. translators: %s: search query.
 #: search.php:14

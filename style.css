@@ -318,6 +318,44 @@ body {
         border-top: 1px solid var(--border-color);
         margin-top: 2rem;
       }
+
+      form#group-lookup {
+        display: flex;
+        gap: 1rem;
+        input[type="search"] {
+          flex: 1;
+        }
+      }
+
+      div#group-lookup-results {
+        margin-top: 2rem;
+        article {
+          border: 1px solid var(--border-color);
+          border-radius: 0.5rem;
+          padding: 1rem;
+          h3 {
+            margin: 0;
+          }
+        }
+        dl {
+          display: grid;
+          grid-template-columns: 100px 1fr;
+          gap: 0.5rem 1rem;
+          margin-bottom: 0;
+          dt {
+            font-weight: bold;
+            width: 100px;
+            margin: 0;
+          }
+          dd {
+            margin: 0;
+            width: calc(100% - 100px);
+          }
+        }
+        mark {
+          background-color: #ffee8c;
+        }
+      }
     }
 
     aside {
