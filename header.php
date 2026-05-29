@@ -43,6 +43,7 @@
                 </path>
             </svg>
             <a href="<?php echo home_url() ?>">
-                <img src="<?php echo get_template_directory_uri() ?>/logo.png" width="799" height="798" alt="<?php esc_attr_e('CNCA Logo', 'cnca') ?>">
+                <img src="<?php echo get_template_directory_uri() ?>/logo.webp" width="192" height="192"
+                    alt="<?php esc_attr_e('CNCA Logo', 'cnca') ?>">
             </a>
         </header>

@@ -138,11 +138,14 @@ remove_action('wp_print_styles', 'print_emoji_styles');
 remove_action('admin_print_scripts', 'print_emoji_detection_script');
 remove_action('admin_print_styles', 'print_emoji_styles');
 
-
-
 add_action('wp_head', function () {
-    echo '<link rel="icon" href="' . get_template_directory_uri() . '/logo.png" type="image/png">';
+    echo '
+    <link rel="icon" href="' . get_template_directory_uri() . '/logo.webp" type="image/webp" />
+    <link rel="shortcut icon" href="' . get_template_directory_uri() . '/logo.webp" type="image/webp" />
+    ';
 });
+
+add_filter('get_site_icon_url', '__return_false');
 
 add_shortcode(
     CNCA_GROUP_LOOKUP,
