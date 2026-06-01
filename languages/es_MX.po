@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CNCA 1.0.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/cnca\n"
-"POT-Creation-Date: 2026-05-25T16:41:08+00:00\n"
-"PO-Revision-Date: 2026-05-25 09:42-0700\n"
+"POT-Creation-Date: 2026-06-01T15:53:00+00:00\n"
+"PO-Revision-Date: 2026-06-01 08:54-0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -39,7 +39,8 @@ msgstr "https://www.cnca06.org"
 msgid "Page not found"
 msgstr "Página no encontrada"
 
-#: 404.php:18
+#. translators: %s is a URL to the contact us page
+#: 404.php:20
 #, php-format
 msgid ""
 "No page was found at this address. Please try a search or <a "
@@ -52,37 +53,47 @@ msgstr ""
 msgid "Menu"
 msgstr "Menú"
 
-#: header.php:46
+#: header.php:47
 msgid "CNCA Logo"
 msgstr "Logotipo de la CNCA"
 
-#: inc/actions.php:80
+#: inc/group-lookup.php:49
 msgid "District"
 msgstr "Distrito"
 
-#: inc/actions.php:81
+#: inc/group-lookup.php:50
 msgid "An error occurred while searching."
 msgstr "Se ha producido un error durante la búsqueda."
 
-#: inc/actions.php:82
+#: inc/group-lookup.php:51
 msgid "Group ID"
 msgstr "ID Grupo"
 
-#: inc/actions.php:83
+#: inc/group-lookup.php:52
 msgid "Location"
 msgstr "Ubicación"
 
-#: inc/actions.php:84
+#: inc/group-lookup.php:53
 msgid "No groups found."
 msgstr "No se encontraron grupos."
 
-#: inc/shortcodes.php:6
+#: inc/group-lookup.php:64
 msgid "Search groups..."
 msgstr "Buscar grupos de ofertas grupales..."
 
-#: inc/shortcodes.php:7
+#: inc/group-lookup.php:65
 msgid "Search"
 msgstr "Buscar"
+
+#: inc/theme.php:90
+msgid ""
+"Serving Alcoholics Anonymous through the General Service structure. "
+"Supporting GSRs, DCMs, and Area trusted servants in carrying the message."
+msgstr ""
+"Al servicio de Alcohólicos Anónimos a través de la estructura de Servicios "
+"Generales. Apoyando a los representantes de los grupos locales (RSG), a los "
+"coordinadores de distrito (MCD) y a los servidores de confianza de área en "
+"la difusión del mensaje."
 
 #. translators: %s: search query.
 #: search.php:14
