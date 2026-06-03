@@ -23,9 +23,21 @@ add_action('init', function () {
     // remove unnecessary scripts from the frontend
     if (!is_admin()) {
         wp_deregister_script('jquery-ui-core');
-        wp_deregister_script('jquery-migrate');
     }
 });
+
+add_action(
+    'wp_default_scripts',
+    function ($scripts) {
+        if (!is_admin() && isset($scripts->registered['jquery'])) {
+            $script = $scripts->registered['jquery'];
+            if ($script->deps) {
+                $script->deps = array_diff($script->deps, ['jquery-migrate']);
+            }
+        }
+    }
+);
+
 
 add_action('widgets_init', function () {
     foreach (['cnca-sidebar' => 'Sidebar', 'cnca-footer' => 'Footer'] as $id => $name) {

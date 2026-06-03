@@ -4,13 +4,13 @@
  * Author URI: https://www.cnca06.org
  * Description: A WordPress theme for California Northern Coastal Area 06
  * Text Domain: cnca
- * Version: 1.0.5
+ * Version: 1.0.10
  * Tested up to: 5.4
 */
 
 :root {
-  --primary-color: #5aafe2;
-  --secondary-color: #f87436;
+  --primary-color: #1a75bc;
+  --secondary-color: #c44f0c;
   --background-color: #f5f9f8;
   --border-color: #ddd;
   --link-color: #3d7799;
