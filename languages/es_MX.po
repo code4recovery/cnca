@@ -57,31 +57,44 @@ msgstr "Menú"
 msgid "CNCA Logo"
 msgstr "Logotipo de la CNCA"
 
-#: inc/group-lookup.php:49
+#: inc/group-lookup.php:103
 msgid "District"
 msgstr "Distrito"
 
-#: inc/group-lookup.php:50
+#: inc/group-lookup.php:50 inc/group-lookup.php:55 inc/group-lookup.php:61 inc/group-lookup.php:74 inc/group-lookup.php:104
 msgid "An error occurred while searching."
 msgstr "Se ha producido un error durante la búsqueda."
 
-#: inc/group-lookup.php:51
+#: inc/group-lookup.php:105
 msgid "Group ID"
 msgstr "ID Grupo"
 
-#: inc/group-lookup.php:52
+#: inc/group-lookup.php:106
 msgid "Location"
 msgstr "Ubicación"
 
-#: inc/group-lookup.php:53
+#: inc/group-lookup.php:107
+msgid "Searching groups..."
+msgstr "Buscando grupos..."
+
+#: inc/group-lookup.php:108
 msgid "No groups found."
 msgstr "No se encontraron grupos."
 
-#: inc/group-lookup.php:64
+#: inc/group-lookup.php:14 inc/group-lookup.php:18 inc/group-lookup.php:23
+msgid "Enter a search term."
+msgstr "Introduce un término de búsqueda."
+
+#: inc/group-lookup.php:30 inc/group-lookup.php:111
+#, php-format
+msgid "Search terms must be %d characters or fewer."
+msgstr "Los términos de búsqueda deben tener %d caracteres o menos."
+
+#: inc/group-lookup.php:123
 msgid "Search groups..."
 msgstr "Buscar grupos de ofertas grupales..."
 
-#: inc/group-lookup.php:65
+#: inc/group-lookup.php:124
 msgid "Search"
 msgstr "Buscar"
 
