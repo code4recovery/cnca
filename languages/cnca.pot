@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the CNCA theme.
 msgid ""
 msgstr ""
-"Project-Id-Version: CNCA 1.0.5\n"
+"Project-Id-Version: CNCA 1.0.12\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/cnca\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-06-01T15:53:00+00:00\n"
+"POT-Creation-Date: 2026-11-08T17:52:36+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: cnca\n"
@@ -52,12 +52,30 @@ msgstr ""
 msgid "CNCA Logo"
 msgstr ""
 
-#: inc/group-lookup.php:103
-msgid "District"
+#: inc/group-lookup.php:13
+#: inc/group-lookup.php:19
+#: inc/group-lookup.php:24
+#: inc/group-lookup.php:109
+msgid "Enter a search term."
 msgstr ""
 
-#: inc/group-lookup.php:50 inc/group-lookup.php:55 inc/group-lookup.php:61 inc/group-lookup.php:74 inc/group-lookup.php:104
+#. translators: %d is the maximum search length.
+#: inc/group-lookup.php:32
+#: inc/group-lookup.php:111
+#, php-format
+msgid "Search terms must be %d characters or fewer."
+msgstr ""
+
+#: inc/group-lookup.php:50
+#: inc/group-lookup.php:55
+#: inc/group-lookup.php:61
+#: inc/group-lookup.php:74
+#: inc/group-lookup.php:104
 msgid "An error occurred while searching."
+msgstr ""
+
+#: inc/group-lookup.php:103
+msgid "District"
 msgstr ""
 
 #: inc/group-lookup.php:105
@@ -76,15 +94,6 @@ msgstr ""
 msgid "No groups found."
 msgstr ""
 
-#: inc/group-lookup.php:14 inc/group-lookup.php:18 inc/group-lookup.php:23
-msgid "Enter a search term."
-msgstr ""
-
-#: inc/group-lookup.php:30 inc/group-lookup.php:111
-#, php-format
-msgid "Search terms must be %d characters or fewer."
-msgstr ""
-
 #: inc/group-lookup.php:123
 msgid "Search groups..."
 msgstr ""
@@ -93,7 +102,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: inc/theme.php:90
+#: inc/theme.php:103
 msgid "Serving Alcoholics Anonymous through the General Service structure. Supporting GSRs, DCMs, and Area trusted servants in carrying the message."
 msgstr ""
 
