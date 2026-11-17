@@ -3,6 +3,16 @@
 const CNCA_GROUP_LOOKUP = "cnca_group_lookup";
 const CNCA_GROUP_LOOKUP_MAX_SEARCH_LENGTH = 100;
 
+function cnca_group_lookup_upstream_error(array $debug): WP_Error
+{
+    $data = ['status' => 502];
+    if (current_user_can('manage_options')) {
+        $data['debug'] = $debug;
+    }
+
+    return new WP_Error('group_lookup_upstream_error', __('An error occurred while searching.', 'cnca'), $data);
+}
+
 add_action('rest_api_init', function () {
     register_rest_route('cnca/v1', '/group-lookup', [
         'methods' => 'POST',
@@ -37,9 +47,10 @@ add_action('rest_api_init', function () {
             }
 
             $escaped_search = str_replace(['\\', '"'], ['\\\\', '\\"'], $search);
-            $formula = 'SEARCH(LOWER("' . $escaped_search . '"), LOWER({Meeting}))';
+            $formula = 'SEARCH(LOWER("' . $escaped_search . '"), LOWER({Group Name}))';
+            $url = add_query_arg('filterByFormula', $formula, CNCA_AIRTABLE_BASE_URL);
 
-            $response = wp_remote_get(add_query_arg('filterByFormula', $formula, CNCA_AIRTABLE_BASE_URL), [
+            $response = wp_remote_get($url, [
                 'headers' => [
                     'Authorization' => 'Bearer ' . CNCA_AIRTABLE_API_KEY,
                     'Accept' => 'application/json',
@@ -47,38 +58,57 @@ add_action('rest_api_init', function () {
             ]);
 
             if (is_wp_error($response)) {
-                return new WP_Error('group_lookup_upstream_error', __('An error occurred while searching.', 'cnca'), ['status' => 502]);
+                return cnca_group_lookup_upstream_error([
+                    'stage' => 'airtable_request',
+                    'error_code' => $response->get_error_code(),
+                    'error_message' => substr(sanitize_text_field($response->get_error_message()), 0, 300),
+                ]);
             }
 
             $response_code = wp_remote_retrieve_response_code($response);
             if ($response_code < 200 || $response_code >= 300) {
-                return new WP_Error('group_lookup_upstream_error', __('An error occurred while searching.', 'cnca'), ['status' => 502]);
+                $debug = [
+                    'stage' => 'airtable_http_response',
+                    'http_status' => $response_code,
+                ];
+                $upstream_error = json_decode(wp_remote_retrieve_body($response), true);
+                if (isset($upstream_error['error']['type']) && is_string($upstream_error['error']['type'])) {
+                    $debug['error_type'] = sanitize_text_field($upstream_error['error']['type']);
+                }
+                if (isset($upstream_error['error']['message']) && is_string($upstream_error['error']['message'])) {
+                    $debug['error_message'] = substr(sanitize_text_field($upstream_error['error']['message']), 0, 300);
+                }
+
+                return cnca_group_lookup_upstream_error($debug);
             }
 
             $results = json_decode(wp_remote_retrieve_body($response), true);
 
             if (!is_array($results) || !isset($results['records']) || !is_array($results['records'])) {
-                return new WP_Error('group_lookup_upstream_error', __('An error occurred while searching.', 'cnca'), ['status' => 502]);
+                return cnca_group_lookup_upstream_error([
+                    'stage' => 'airtable_response',
+                    'issue' => json_last_error() === JSON_ERROR_NONE ? 'missing_records' : 'invalid_json',
+                    'json_error' => json_last_error_msg(),
+                ]);
             }
 
             $groups = [];
             foreach ($results['records'] as $record) {
-                $fields = $record['fields'] ?? null;
-                if (
-                    !is_array($fields) ||
-                    !isset($fields['name'], $fields['city'], $fields['region']) ||
-                    !is_string($fields['name']) ||
-                    !is_string($fields['city']) ||
-                    !is_string($fields['region'])
-                ) {
-                    return new WP_Error('group_lookup_upstream_error', __('An error occurred while searching.', 'cnca'), ['status' => 502]);
-                }
+                $fields = is_array($record) && is_array($record['fields'] ?? null)
+                    ? $record['fields']
+                    : [];
 
                 $groups[] = [
-                    'name' => $fields['name'],
-                    'city' => $fields['city'],
-                    'id' => $fields['GSO_ID'] ?? '',
-                    'district' => $fields['region'] === 'Marin' ? '10' : '06',
+                    'name' => $fields['Group Name'] ?? '',
+                    'id' => $fields['Group ID'] ?? '',
+                    'fnv' => $fields['FNV'] ?? '',
+                    'district' => $fields['District'] ?? '',
+                    'sub_district' => $fields['Sub District'] ?? '',
+                    'location' => $fields['Group Location'] ?? '',
+                    'type_format' => $fields['Type/Format'] ?? '',
+                    'address' => $fields['Group Address'] ?? '',
+                    'city' => $fields['Group City'] ?? '',
+                    'status' => $fields['Group Status'] ?? '',
                 ];
             }
 
@@ -100,13 +130,19 @@ add_action('wp_enqueue_scripts', function () {
             'root' => esc_url_raw(rest_url()),
             'nonce' => wp_create_nonce('wp_rest'),
             'group_lookup' => [
+                'address' => __('Address', 'cnca'),
+                'city' => __('City', 'cnca'),
                 'district' => __('District', 'cnca'),
                 'error' => __('An error occurred while searching.', 'cnca'),
+                'fnv' => __('FNV', 'cnca'),
                 'id' => __('Group ID', 'cnca'),
                 'location' => __('Location', 'cnca'),
                 'loading' => __('Searching groups...', 'cnca'),
                 'no_results' => __('No groups found.', 'cnca'),
                 'empty_search' => __('Enter a search term.', 'cnca'),
+                'status' => __('Status', 'cnca'),
+                'sub_district' => __('Sub District', 'cnca'),
+                'type_format' => __('Type/Format', 'cnca'),
                 /* translators: %d is the maximum search length. */
                 'search_too_long' => sprintf(__('Search terms must be %d characters or fewer.', 'cnca'), CNCA_GROUP_LOOKUP_MAX_SEARCH_LENGTH),
                 'max_search_length' => CNCA_GROUP_LOOKUP_MAX_SEARCH_LENGTH,
