@@ -4,7 +4,7 @@
  * Author URI: https://www.cnca06.org
  * Description: A WordPress theme for California Northern Coastal Area 06
  * Text Domain: cnca
- * Version: 1.0.12
+ * Version: 1.0.14
  * Tested up to: 5.4
 */
 
@@ -17,6 +17,12 @@
   --nav-icon-size: 1.4rem;
   --text-color: #333;
   --font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+@keyframes group-lookup-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 html {
@@ -370,6 +376,21 @@ body {
 
       div#group-lookup-results {
         margin-top: 2rem;
+        .group-lookup-loading {
+          align-items: center;
+          display: flex;
+          gap: 0.5rem;
+
+          &::before {
+            animation: group-lookup-spin 0.8s linear infinite;
+            border: 2px solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            content: "";
+            height: 1rem;
+            width: 1rem;
+          }
+        }
         article {
           border: 1px solid var(--border-color);
           border-radius: 0.5rem;
@@ -380,17 +401,16 @@ body {
         }
         dl {
           display: grid;
-          grid-template-columns: 100px 1fr;
-          gap: 0.5rem 1rem;
           margin-bottom: 0;
           dt {
             font-weight: bold;
-            width: 100px;
             margin: 0;
           }
           dd {
-            margin: 0;
-            width: calc(100% - 100px);
+            margin: 0 0 1rem;
+            &:last-child {
+              margin-bottom: 0;
+            }
           }
         }
         mark {
@@ -553,6 +573,14 @@ body {
     > main {
       grid-template-columns: 1fr 300px;
       padding-inline: 3rem;
+
+      section div#group-lookup-results dl {
+        grid-template-columns: 8rem 1fr;
+        gap: 0.5rem 1rem;
+        dd {
+          margin-bottom: 0;
+        }
+      }
     }
   }
 }

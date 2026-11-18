@@ -2,11 +2,54 @@
   // Group lookup functionality
   const form = document.getElementById("group-lookup");
   const resultsContainer = document.getElementById("group-lookup-results");
+  const submitButton = form.querySelector('input[type="submit"]');
+  const searchInput = form.elements.search;
+  const maxSearchLength = cnca.group_lookup.max_search_length;
+
+  function displayValue(value) {
+    if (Array.isArray(value)) {
+      return value.map(displayValue).filter(Boolean).join(", ");
+    }
+
+    if (typeof value !== "string" && typeof value !== "number" && typeof value !== "boolean") {
+      return "";
+    }
+
+    return String(value).trim();
+  }
+
+  searchInput.addEventListener("input", () => {
+    searchInput.setCustomValidity("");
+  });
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const search = form.search.value.trim();
+    if (form.dataset.loading === "true") return;
+
+    const search = searchInput.value.trim();
+    if (!search) {
+      searchInput.setCustomValidity(cnca.group_lookup.empty_search);
+      searchInput.reportValidity();
+      return;
+    }
+
+    if (search.length > maxSearchLength) {
+      searchInput.setCustomValidity(cnca.group_lookup.search_too_long);
+      searchInput.reportValidity();
+      return;
+    }
+
+    searchInput.setCustomValidity("");
+    const loadingMessage = document.createElement("p");
+    loadingMessage.className = "group-lookup-loading";
+    loadingMessage.setAttribute("role", "status");
+    loadingMessage.textContent = cnca.group_lookup.loading;
+
+    form.dataset.loading = "true";
+    form.setAttribute("aria-busy", "true");
+    submitButton.disabled = true;
+    resultsContainer.replaceChildren(loadingMessage);
 
     try {
       const response = await fetch(`${cnca.root}cnca/v1/group-lookup`, {
@@ -20,36 +63,66 @@
       if (!response.ok) throw new Error("Network response was not ok");
 
       const groups = await response.json();
+      if (!Array.isArray(groups)) throw new Error("Invalid group lookup response");
 
       if (groups.length === 0) {
-        resultsContainer.innerHTML = cnca.group_lookup.no_results;
+        resultsContainer.textContent = cnca.group_lookup.no_results;
         return;
       }
 
-      resultsContainer.innerHTML = groups
-        .map((group) => {
-          const highlightedText = group.name.replace(
-            new RegExp(search, "gi"),
-            (match) => `<mark>${match}</mark>`,
-          );
-          return `
-                <article>
-                    <h3>${highlightedText}</h3>
-                    <dl>
-                        <dt>${cnca.group_lookup.location}</dt>
-                        <dd>${group.city}</dd>
-                        <dt>${cnca.group_lookup.district}</dt>
-                        <dd>${group.district}</dd>
-                        <dt>${cnca.group_lookup.id}</dt>
-                        <dd>${group.id || "-"}</dd>
-                    </dl>
-                </article>
-            `;
-        })
-        .join("");
+      const regex = new RegExp(search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi");
+      const articles = groups.map((group) => {
+        const article = document.createElement("article");
+        const name = displayValue(group.name);
+        let lastIndex = 0;
+
+        if (name) {
+          const heading = document.createElement("h3");
+          name.replace(regex, (match, offset) => {
+            heading.append(document.createTextNode(name.slice(lastIndex, offset)));
+            const mark = document.createElement("mark");
+            mark.textContent = match;
+            heading.append(mark);
+            lastIndex = offset + match.length;
+            return match;
+          });
+          heading.append(document.createTextNode(name.slice(lastIndex)));
+          article.append(heading);
+        }
+
+        const details = document.createElement("dl");
+        [
+          [cnca.group_lookup.id, group.id],
+          [cnca.group_lookup.fnv, group.fnv],
+          [cnca.group_lookup.district, group.district],
+          [cnca.group_lookup.sub_district, group.sub_district],
+          [cnca.group_lookup.location, group.location],
+          [cnca.group_lookup.type_format, group.type_format],
+          [cnca.group_lookup.address, group.address],
+          [cnca.group_lookup.city, group.city],
+          [cnca.group_lookup.status, group.status],
+        ].forEach(([label, rawValue]) => {
+          const value = displayValue(rawValue);
+          if (!value) return;
+
+          const term = document.createElement("dt");
+          term.textContent = label;
+          const description = document.createElement("dd");
+          description.textContent = value;
+          details.append(term, description);
+        });
+        if (details.childElementCount) article.append(details);
+        return article;
+      });
+
+      resultsContainer.replaceChildren(...articles);
     } catch (error) {
       console.error(error);
-      resultsContainer.innerHTML = cnca.group_lookup.error;
+      resultsContainer.textContent = cnca.group_lookup.error;
+    } finally {
+      delete form.dataset.loading;
+      form.removeAttribute("aria-busy");
+      submitButton.disabled = false;
     }
   });
 })();

@@ -4,15 +4,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CNCA 1.0.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/cnca\n"
-"POT-Creation-Date: 2026-06-01T15:53:00+00:00\n"
-"PO-Revision-Date: 2026-06-01 08:54-0700\n"
+"POT-Creation-Date: 2026-11-17T05:10:11+00:00\n"
+"PO-Revision-Date: 2026-11-16 21:11-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Poedit 3.10\n"
 "X-Domain: cnca\n"
 
 #. Theme Name of the theme
@@ -57,35 +57,74 @@ msgstr "Menú"
 msgid "CNCA Logo"
 msgstr "Logotipo de la CNCA"
 
-#: inc/group-lookup.php:49
-msgid "District"
-msgstr "Distrito"
-
-#: inc/group-lookup.php:50
+#: inc/group-lookup.php:13 inc/group-lookup.php:136
 msgid "An error occurred while searching."
 msgstr "Se ha producido un error durante la búsqueda."
 
-#: inc/group-lookup.php:51
+#: inc/group-lookup.php:23 inc/group-lookup.php:29 inc/group-lookup.php:34
+#: inc/group-lookup.php:142
+msgid "Enter a search term."
+msgstr "Introduce un término de búsqueda."
+
+#. translators: %d is the maximum search length.
+#: inc/group-lookup.php:42 inc/group-lookup.php:147
+#, php-format
+msgid "Search terms must be %d characters or fewer."
+msgstr "Los términos de búsqueda deben tener %d caracteres o menos."
+
+#: inc/group-lookup.php:133
+msgid "Address"
+msgstr "Dirección"
+
+#: inc/group-lookup.php:134
+msgid "City"
+msgstr "Ciudad"
+
+#: inc/group-lookup.php:135
+msgid "District"
+msgstr "Distrito"
+
+#: inc/group-lookup.php:137
+msgid "FNV"
+msgstr "FNV"
+
+#: inc/group-lookup.php:138
 msgid "Group ID"
 msgstr "ID Grupo"
 
-#: inc/group-lookup.php:52
+#: inc/group-lookup.php:139
 msgid "Location"
 msgstr "Ubicación"
 
-#: inc/group-lookup.php:53
+#: inc/group-lookup.php:140
+msgid "Searching groups..."
+msgstr "Buscando grupos..."
+
+#: inc/group-lookup.php:141
 msgid "No groups found."
 msgstr "No se encontraron grupos."
 
-#: inc/group-lookup.php:64
+#: inc/group-lookup.php:143
+msgid "Status"
+msgstr "Estado"
+
+#: inc/group-lookup.php:144
+msgid "Sub District"
+msgstr "Subdistrito"
+
+#: inc/group-lookup.php:145
+msgid "Type/Format"
+msgstr "Tipo/Formato"
+
+#: inc/group-lookup.php:159
 msgid "Search groups..."
 msgstr "Buscar grupos de ofertas grupales..."
 
-#: inc/group-lookup.php:65
+#: inc/group-lookup.php:160
 msgid "Search"
 msgstr "Buscar"
 
-#: inc/theme.php:90
+#: inc/theme.php:103
 msgid ""
 "Serving Alcoholics Anonymous through the General Service structure. "
 "Supporting GSRs, DCMs, and Area trusted servants in carrying the message."
