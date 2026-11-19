@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CNCA 1.0.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/cnca\n"
-"POT-Creation-Date: 2026-11-17T05:10:11+00:00\n"
-"PO-Revision-Date: 2026-11-16 21:11-0800\n"
+"POT-Creation-Date: 2026-11-19T18:10:01+00:00\n"
+"PO-Revision-Date: 2026-11-19 10:11-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -85,8 +85,8 @@ msgid "District"
 msgstr "Distrito"
 
 #: inc/group-lookup.php:137
-msgid "FNV"
-msgstr "FNV"
+msgid "FNV (legacy number)"
+msgstr "FNV (número heredado)"
 
 #: inc/group-lookup.php:138
 msgid "Group ID"
@@ -159,6 +159,9 @@ msgstr "Buscar:"
 #: searchform.php:6
 msgid "Search this site..."
 msgstr "Buscar en este sitio…"
+
+#~ msgid "FNV"
+#~ msgstr "FNV"
 
 #, php-format
 #~ msgid "&copy; %s California Northern Coastal Area 06. All rights reserved."

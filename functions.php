@@ -1,6 +1,6 @@
 <?php
 
-const CNCA_VERSION = '1.0.14';
+const CNCA_VERSION = '1.0.15';
 
 include_once get_template_directory() . '/inc/group-lookup.php';
 include_once get_template_directory() . '/inc/news-feed.php';

@@ -134,7 +134,7 @@ add_action('wp_enqueue_scripts', function () {
                 'city' => __('City', 'cnca'),
                 'district' => __('District', 'cnca'),
                 'error' => __('An error occurred while searching.', 'cnca'),
-                'fnv' => __('FNV', 'cnca'),
+                'fnv' => __('FNV (legacy number)', 'cnca'),
                 'id' => __('Group ID', 'cnca'),
                 'location' => __('Location', 'cnca'),
                 'loading' => __('Searching groups...', 'cnca'),
