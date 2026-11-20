@@ -80,6 +80,10 @@ msgstr "Dirección"
 msgid "City"
 msgstr "Ciudad"
 
+#: inc/group-lookup.php:63
+msgid "Choose a valid search field."
+msgstr "Elige un campo de búsqueda válido."
+
 #: inc/group-lookup.php:135
 msgid "District"
 msgstr "Distrito"
@@ -91,6 +95,10 @@ msgstr "FNV (número heredado)"
 #: inc/group-lookup.php:138
 msgid "Group ID"
 msgstr "ID Grupo"
+
+#: inc/group-lookup.php:179
+msgid "Group Name"
+msgstr "Nombre del grupo"
 
 #: inc/group-lookup.php:139
 msgid "Location"
@@ -123,6 +131,10 @@ msgstr "Buscar grupos de ofertas grupales..."
 #: inc/group-lookup.php:160
 msgid "Search"
 msgstr "Buscar"
+
+#: inc/group-lookup.php:178
+msgid "Search by"
+msgstr "Buscar por"
 
 #: inc/theme.php:103
 msgid ""

@@ -79,6 +79,10 @@ msgstr ""
 msgid "City"
 msgstr ""
 
+#: inc/group-lookup.php:63
+msgid "Choose a valid search field."
+msgstr ""
+
 #: inc/group-lookup.php:135
 msgid "District"
 msgstr ""
@@ -89,6 +93,10 @@ msgstr ""
 
 #: inc/group-lookup.php:138
 msgid "Group ID"
+msgstr ""
+
+#: inc/group-lookup.php:179
+msgid "Group Name"
 msgstr ""
 
 #: inc/group-lookup.php:139
@@ -121,6 +129,10 @@ msgstr ""
 
 #: inc/group-lookup.php:160
 msgid "Search"
+msgstr ""
+
+#: inc/group-lookup.php:178
+msgid "Search by"
 msgstr ""
 
 #: inc/theme.php:103

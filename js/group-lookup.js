@@ -5,6 +5,13 @@
   const submitButton = form.querySelector('input[type="submit"]');
   const searchInput = form.elements.search;
   const maxSearchLength = cnca.group_lookup.max_search_length;
+  const isSpanish = document.documentElement.lang.toLowerCase().startsWith("es");
+  const spanishStatuses = new Map([
+    ["Unknown", "Desconocido"],
+    ["Active", "Activo"],
+    ["Inactive", "Inactivo"],
+    ["Never Registered", "Nunca registrado"],
+  ]);
 
   function displayValue(value) {
     if (Array.isArray(value)) {
@@ -16,6 +23,22 @@
     }
 
     return String(value).trim();
+  }
+
+  function displayTypeFormat(value) {
+    const formattedValue = displayValue(value);
+    const separatorIndex = formattedValue.indexOf("/");
+
+    if (separatorIndex === -1) return formattedValue;
+
+    return isSpanish
+      ? formattedValue.slice(separatorIndex + 1).trim()
+      : formattedValue.slice(0, separatorIndex).trim();
+  }
+
+  function displayStatus(value) {
+    const status = displayValue(value);
+    return isSpanish ? spanishStatuses.get(status) ?? status : status;
   }
 
   searchInput.addEventListener("input", () => {
@@ -97,10 +120,10 @@
           [cnca.group_lookup.district, group.district],
           [cnca.group_lookup.sub_district, group.sub_district],
           [cnca.group_lookup.location, group.location],
-          [cnca.group_lookup.type_format, group.type_format],
+          [cnca.group_lookup.type_format, displayTypeFormat(group.type_format)],
           [cnca.group_lookup.address, group.address],
           [cnca.group_lookup.city, group.city],
-          [cnca.group_lookup.status, group.status],
+          [cnca.group_lookup.status, displayStatus(group.status)],
         ].forEach(([label, rawValue]) => {
           const value = displayValue(rawValue);
           if (!value) return;

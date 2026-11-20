@@ -46,8 +46,27 @@ add_action('rest_api_init', function () {
                 );
             }
 
+            $field = $request->get_param('field');
+            if ($field === null || $field === '') {
+                $field = 'group_name';
+            }
+
+            $search_fields = [
+                'group_name' => 'Group Name',
+                'city' => 'Group City',
+                'group_id' => 'Group ID',
+                'fnv' => 'FNV',
+            ];
+            if (!is_string($field) || !isset($search_fields[$field])) {
+                return new WP_Error(
+                    'invalid_group_search_field',
+                    __('Choose a valid search field.', 'cnca'),
+                    ['status' => 400]
+                );
+            }
+
             $escaped_search = str_replace(['\\', '"'], ['\\\\', '\\"'], $search);
-            $formula = 'SEARCH(LOWER("' . $escaped_search . '"), LOWER({Group Name}))';
+            $formula = 'SEARCH(LOWER("' . $escaped_search . '"), LOWER({' . $search_fields[$field] . '}))';
             $url = add_query_arg('filterByFormula', $formula, CNCA_AIRTABLE_BASE_URL);
 
             $response = wp_remote_get($url, [
@@ -156,6 +175,12 @@ add_shortcode(
     CNCA_GROUP_LOOKUP,
     fn() => '
     <form id="group-lookup">
+        <select name="field" aria-label="' . esc_attr__('Search by', 'cnca') . '">
+            <option value="group_name">' . esc_html__('Group Name', 'cnca') . '</option>
+            <option value="city">' . esc_html__('City', 'cnca') . '</option>
+            <option value="group_id">' . esc_html__('Group ID', 'cnca') . '</option>
+            <option value="fnv">' . esc_html__('FNV (legacy number)', 'cnca') . '</option>
+        </select>
         <input name="search" type="search" placeholder="' . esc_attr__('Search groups...', 'cnca') . '" maxlength="' . CNCA_GROUP_LOOKUP_MAX_SEARCH_LENGTH . '" required>
         <input type="submit" value="' . esc_attr__('Search', 'cnca') . '">
     </form>
