@@ -4,6 +4,6 @@
             <?php _e('Search for:', 'cnca') ?>
         </span>
         <input type="search" placeholder="<?php esc_attr_e('Search this site...', 'cnca') ?>"
-            value="<?php echo get_search_query(); ?>" name="s" />
+            value="<?php echo esc_attr(get_search_query()); ?>" name="s" />
     </label>
 </form>

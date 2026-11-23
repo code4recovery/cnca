@@ -4,7 +4,7 @@
  * Author URI: https://www.cnca06.org
  * Description: A WordPress theme for California Northern Coastal Area 06
  * Text Domain: cnca
- * Version: 1.0.16
+ * Version: 1.0.17
  * Tested up to: 5.4
 */
 
@@ -13,7 +13,6 @@
   --secondary-color: #f87436;
   --background-color: #f5f9f8;
   --border-color: #ddd;
-  --link-color: #1a75bc;
   --nav-icon-size: 1.4rem;
   --text-color: #333;
   --font-family: ui-sans-serif, system-ui, sans-serif;
@@ -113,7 +112,7 @@ body {
         color: var(--text-color);
       }
 
-      > li.menu-item-has-children > a:after {
+      > li.menu-item-has-children > a::after {
         content: "▼";
         display: block;
         font-size: 0.75rem;
@@ -200,7 +199,7 @@ body {
     grid-template-columns: 1fr;
 
     a {
-      color: var(--link-color);
+      color: var(--primary-color);
       font-weight: 500;
       &:hover {
         color: var(--secondary-color);
@@ -301,9 +300,10 @@ body {
       }
 
       button,
+      input[type="submit"],
       .wp-block-button__link {
         background-color: var(--primary-color);
-        border-radius: 6px;
+        border-radius: 0.25rem;
         border: 0;
         color: white;
         cursor: pointer;
@@ -324,7 +324,7 @@ body {
         cursor: not-allowed;
       }
 
-      form#group-lookup {
+      #group-lookup {
         display: flex;
         gap: 1rem;
         select {
@@ -358,7 +358,7 @@ body {
         }
       }
 
-      div#group-lookup-results {
+      #group-lookup-results {
         margin-top: 2rem;
         .group-lookup-loading {
           align-items: center;
@@ -415,7 +415,7 @@ body {
 
       form#cnca-search {
         position: relative;
-        &:after {
+        &::after {
           background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='%23666' class='size-6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z' /%3E%3C/svg%3E%0A");
           background-position: center;
           background-repeat: no-repeat;
@@ -563,7 +563,7 @@ body {
       grid-template-columns: 1fr 300px;
       padding-inline: 3rem;
 
-      section div#group-lookup-results dl {
+      section #group-lookup-results dl {
         gap: 0.5rem 1.5rem;
         grid-template-columns: 12rem 1fr;
         dd {

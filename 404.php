@@ -12,15 +12,13 @@ if (function_exists('pll_current_language')) {
 <main>
     <section>
         <article>
-            <article>
-                <h1><?php _e('Page not found', 'cnca') ?></h1>
-                <p>
-                    <?php
-                    // translators: %s is a URL to the contact us page
-                    printf(__('No page was found at this address. Please try a search or <a href="%s">contact the Web Committee</a>.', 'cnca'), $contact_us_url);
-                    ?>
-                </p>
-            </article>
+            <h1><?php _e('Page not found', 'cnca') ?></h1>
+            <p>
+                <?php
+                // translators: %s is a URL to the contact us page
+                printf(__('No page was found at this address. Please try a search or <a href="%s">contact the Web Committee</a>.', 'cnca'), esc_url($contact_us_url));
+                ?>
+            </p>
         </article>
     </section>
     <aside>

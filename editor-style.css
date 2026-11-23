@@ -3,7 +3,6 @@
   --secondary-color: #f87436;
   --background-color: #f5f9f8;
   --border-color: #ddd;
-  --link-color: #1a75bc;
   --nav-icon-size: 1.4rem;
   --text-color: #333;
   --font-family: ui-sans-serif, system-ui, sans-serif;
@@ -16,7 +15,7 @@
 }
 
 a {
-  color: var(--link-color);
+  color: var(--primary-color);
   cursor: pointer;
   font-weight: 500;
 }
@@ -39,6 +38,7 @@ img {
 }
 
 button,
+input[type="submit"],
 .wp-block-button__link {
   background-color: var(--primary-color);
   border-radius: 6px;
@@ -52,6 +52,7 @@ button,
 }
 
 button:hover,
+input[type="submit"]:hover,
 .wp-block-button__link:hover {
   background-color: var(--secondary-color);
 }

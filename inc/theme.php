@@ -19,13 +19,6 @@ add_action('after_setup_theme', function () {
     ]);
 });
 
-add_action('init', function () {
-    // remove unnecessary scripts from the frontend
-    if (!is_admin()) {
-        wp_deregister_script('jquery-ui-core');
-    }
-});
-
 add_action('widgets_init', function () {
     foreach (['cnca-sidebar' => 'Sidebar', 'cnca-footer' => 'Footer'] as $id => $name) {
         register_sidebar([
@@ -55,36 +48,38 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('cnca', get_template_directory_uri() . '/style.css', [], CNCA_VERSION);
     wp_enqueue_script('cnca', get_template_directory_uri() . '/js/sidebar.js', [], CNCA_VERSION, true);
 
-    // remove global styles and scripts from the frontend to improve performance
-    if (is_admin()) {
-        return;
-    }
+    // remove plugin styles and scripts from the frontend to improve performance
+    $assets = [
+        'style' => [
+            'givewp-campaign-blocks-fonts',
+            'give-styles',
+            'givewp-design-system-foundation',
+            'give_ffm_frontend_styles',
+            'give_ffm_datepicker_styles',
+            'give-square-frontend',
+            'simcal-qtip',
+            'simcal-default-calendar-grid',
+        ],
+        'script' => [
+            'give-square-frontend',
+            'give-square-payment-form',
+            'give',
+            'give_ffm_frontend',
+            'givewp-entities-public',
+            'plupload-handlers',
+            'jquery-ui-datepicker',
+            'jquery-ui-slider',
+            'simcal-default-calendar',
+            'simcal-qtip',
+            'simplecalendar-imagesloaded',
+        ],
+    ];
 
-    $styles = [
-        'givewp-campaign-blocks-fonts',
-        'give-styles',
-        'givewp-design-system-foundation',
-        'give_ffm_frontend_styles',
-        'give_ffm_datepicker_styles',
-        'give-square-frontend',
-        'simcal-qtip',
-        'simcal-default-calendar-grid',
-    ];
-    foreach ($styles as $style) {
-        wp_dequeue_style($style);
-    }
-    $scripts = [
-        'give-square-frontend',
-        'give-square-payment-form',
-        'give',
-        'givewp-entities-public',
-        'plupload-handlers',
-        'simcal-default-calendar',
-        'simcal-qtip',
-        'simplecalendar-imagesloaded',
-    ];
-    foreach ($scripts as $script) {
-        wp_dequeue_script($script);
+    foreach ($assets as $type => $handles) {
+        $dequeue = $type === 'style' ? 'wp_dequeue_style' : 'wp_dequeue_script';
+        foreach ($handles as $handle) {
+            $dequeue($handle);
+        }
     }
 }, 9999);
 
