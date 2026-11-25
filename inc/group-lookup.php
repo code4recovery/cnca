@@ -54,6 +54,9 @@ add_action('rest_api_init', function () {
             $search_fields = [
                 'group_name' => 'Group Name',
                 'city' => 'Group City',
+                'location' => 'Group Location',
+                'address' => 'Group Address',
+                'district' => 'District',
                 'group_id' => 'Group ID',
                 'fnv' => 'FNV',
             ];
@@ -178,6 +181,9 @@ add_shortcode(
         <select name="field" aria-label="' . esc_attr__('Search by', 'cnca') . '">
             <option value="group_name">' . esc_html__('Group Name', 'cnca') . '</option>
             <option value="city">' . esc_html__('City', 'cnca') . '</option>
+            <option value="location">' . esc_html__('Location', 'cnca') . '</option>
+            <option value="address">' . esc_html__('Address', 'cnca') . '</option>
+            <option value="district">' . esc_html__('District', 'cnca') . '</option>
             <option value="group_id">' . esc_html__('Group ID', 'cnca') . '</option>
             <option value="fnv">' . esc_html__('FNV (legacy number)', 'cnca') . '</option>
         </select>
