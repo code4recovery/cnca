@@ -2,16 +2,121 @@
 
 const CNCA_GROUP_LOOKUP = "cnca_group_lookup";
 const CNCA_GROUP_LOOKUP_MAX_SEARCH_LENGTH = 100;
+const CNCA_GROUP_LOOKUP_CACHE = 'cnca_group_lookup_groups';
+const CNCA_GROUP_LOOKUP_LAST_REFRESHED = 'cnca_group_lookup_last_refreshed';
+const CNCA_GROUP_LOOKUP_SYNC_HOOK = 'cnca_group_lookup_sync';
 
-function cnca_group_lookup_upstream_error(array $debug): WP_Error
+function cnca_group_lookup_sync_groups(): void
 {
-    $data = ['status' => 502];
-    if (current_user_can('manage_options')) {
-        $data['debug'] = $debug;
+    if (!defined('CNCA_AIRTABLE_API_KEY') || !defined('CNCA_AIRTABLE_BASE_URL')) {
+        error_log('CNCA group lookup sync failed: Airtable configuration is missing.');
+        return;
     }
 
-    return new WP_Error('group_lookup_upstream_error', __('An error occurred while searching.', 'cnca'), $data);
+    $groups = [];
+    $offset = null;
+    $seen_offsets = [];
+
+    do {
+        $query = ['pageSize' => 100];
+        if ($offset !== null) {
+            $query['offset'] = $offset;
+        }
+
+        $response = wp_remote_get(add_query_arg($query, CNCA_AIRTABLE_BASE_URL), [
+            'headers' => [
+                'Authorization' => 'Bearer ' . CNCA_AIRTABLE_API_KEY,
+                'Accept' => 'application/json',
+            ],
+            'timeout' => 20,
+        ]);
+
+        if (is_wp_error($response)) {
+            error_log('CNCA group lookup sync failed: Airtable request error ' . $response->get_error_code() . '.');
+            return;
+        }
+
+        $response_code = wp_remote_retrieve_response_code($response);
+        if ($response_code < 200 || $response_code >= 300) {
+            error_log('CNCA group lookup sync failed: Airtable returned HTTP ' . $response_code . '.');
+            return;
+        }
+
+        $page = json_decode(wp_remote_retrieve_body($response), true);
+        if (!is_array($page) || !isset($page['records']) || !is_array($page['records'])) {
+            error_log('CNCA group lookup sync failed: Airtable returned an invalid response.');
+            return;
+        }
+
+        foreach ($page['records'] as $record) {
+            $fields = is_array($record) && is_array($record['fields'] ?? null)
+                ? $record['fields']
+                : [];
+
+            $groups[] = [
+                'name' => $fields['Group Name'] ?? '',
+                'id' => $fields['Group ID'] ?? '',
+                'fnv' => $fields['FNV'] ?? '',
+                'district' => $fields['District'] ?? '',
+                'sub_district' => $fields['Sub District'] ?? '',
+                'location' => $fields['Group Location'] ?? '',
+                'type_format' => $fields['Type/Format'] ?? '',
+                'address' => $fields['Group Address'] ?? '',
+                'city' => $fields['Group City'] ?? '',
+                'status' => $fields['Group Status'] ?? '',
+            ];
+        }
+
+        $offset = $page['offset'] ?? null;
+        if ($offset !== null) {
+            if (!is_string($offset) || $offset === '' || isset($seen_offsets[$offset])) {
+                error_log('CNCA group lookup sync failed: Airtable returned an invalid pagination offset.');
+                return;
+            }
+            $seen_offsets[$offset] = true;
+        }
+    } while ($offset !== null);
+
+    update_option(CNCA_GROUP_LOOKUP_CACHE, $groups, false);
+    update_option(CNCA_GROUP_LOOKUP_LAST_REFRESHED, time(), false);
 }
+
+function cnca_group_lookup_searchable_value($value): string
+{
+    if (is_array($value)) {
+        return implode(' ', array_filter(array_map('cnca_group_lookup_searchable_value', $value), 'strlen'));
+    }
+
+    if (is_bool($value)) {
+        return $value ? 'true' : 'false';
+    }
+
+    return is_scalar($value) ? (string) $value : '';
+}
+
+function cnca_group_lookup_contains(string $value, string $search): bool
+{
+    if (function_exists('mb_stripos')) {
+        return mb_stripos($value, $search, 0, 'UTF-8') !== false;
+    }
+
+    return stripos($value, $search) !== false;
+}
+
+add_action('init', function () {
+    if (!wp_next_scheduled(CNCA_GROUP_LOOKUP_SYNC_HOOK)) {
+        $scheduled = wp_schedule_event(time(), 'hourly', CNCA_GROUP_LOOKUP_SYNC_HOOK);
+        if (is_wp_error($scheduled)) {
+            error_log('CNCA group lookup sync could not be scheduled: ' . $scheduled->get_error_code() . '.');
+        } elseif ($scheduled === false) {
+            error_log('CNCA group lookup sync could not be scheduled.');
+        }
+    }
+});
+add_action(CNCA_GROUP_LOOKUP_SYNC_HOOK, 'cnca_group_lookup_sync_groups');
+add_action('switch_theme', function () {
+    wp_clear_scheduled_hook(CNCA_GROUP_LOOKUP_SYNC_HOOK);
+});
 
 add_action('rest_api_init', function () {
     register_rest_route('cnca/v1', '/group-lookup', [
@@ -52,13 +157,13 @@ add_action('rest_api_init', function () {
             }
 
             $search_fields = [
-                'group_name' => 'Group Name',
-                'city' => 'Group City',
-                'location' => 'Group Location',
-                'address' => 'Group Address',
-                'district' => 'District',
-                'group_id' => 'Group ID',
-                'fnv' => 'FNV',
+                'group_name' => 'name',
+                'city' => 'city',
+                'location' => 'location',
+                'address' => 'address',
+                'district' => 'district',
+                'group_id' => 'id',
+                'fnv' => 'fnv',
             ];
             if (!is_string($field) || !isset($search_fields[$field])) {
                 return new WP_Error(
@@ -68,73 +173,31 @@ add_action('rest_api_init', function () {
                 );
             }
 
-            $escaped_search = str_replace(['\\', '"'], ['\\\\', '\\"'], $search);
-            $formula = 'SEARCH(LOWER("' . $escaped_search . '"), LOWER({' . $search_fields[$field] . '}))';
-            $url = add_query_arg('filterByFormula', $formula, CNCA_AIRTABLE_BASE_URL);
+            $groups = get_option(CNCA_GROUP_LOOKUP_CACHE, null);
+            if (!is_array($groups)) {
+                return new WP_Error(
+                    'group_lookup_unavailable',
+                    __('An error occurred while searching.', 'cnca'),
+                    ['status' => 503]
+                );
+            }
 
-            $response = wp_remote_get($url, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . CNCA_AIRTABLE_API_KEY,
-                    'Accept' => 'application/json',
-                ],
+            $matches = array_filter($groups, function ($group) use ($search_fields, $field, $search) {
+                return is_array($group)
+                    && cnca_group_lookup_contains(
+                        cnca_group_lookup_searchable_value($group[$search_fields[$field]] ?? ''),
+                        $search
+                    );
+            });
+
+            $last_refreshed = get_option(CNCA_GROUP_LOOKUP_LAST_REFRESHED, null);
+
+            return rest_ensure_response([
+                'groups' => array_values($matches),
+                'refreshed_ago' => is_numeric($last_refreshed) && (int) $last_refreshed > 0
+                    ? human_time_diff((int) $last_refreshed, time())
+                    : null,
             ]);
-
-            if (is_wp_error($response)) {
-                return cnca_group_lookup_upstream_error([
-                    'stage' => 'airtable_request',
-                    'error_code' => $response->get_error_code(),
-                    'error_message' => substr(sanitize_text_field($response->get_error_message()), 0, 300),
-                ]);
-            }
-
-            $response_code = wp_remote_retrieve_response_code($response);
-            if ($response_code < 200 || $response_code >= 300) {
-                $debug = [
-                    'stage' => 'airtable_http_response',
-                    'http_status' => $response_code,
-                ];
-                $upstream_error = json_decode(wp_remote_retrieve_body($response), true);
-                if (isset($upstream_error['error']['type']) && is_string($upstream_error['error']['type'])) {
-                    $debug['error_type'] = sanitize_text_field($upstream_error['error']['type']);
-                }
-                if (isset($upstream_error['error']['message']) && is_string($upstream_error['error']['message'])) {
-                    $debug['error_message'] = substr(sanitize_text_field($upstream_error['error']['message']), 0, 300);
-                }
-
-                return cnca_group_lookup_upstream_error($debug);
-            }
-
-            $results = json_decode(wp_remote_retrieve_body($response), true);
-
-            if (!is_array($results) || !isset($results['records']) || !is_array($results['records'])) {
-                return cnca_group_lookup_upstream_error([
-                    'stage' => 'airtable_response',
-                    'issue' => json_last_error() === JSON_ERROR_NONE ? 'missing_records' : 'invalid_json',
-                    'json_error' => json_last_error_msg(),
-                ]);
-            }
-
-            $groups = [];
-            foreach ($results['records'] as $record) {
-                $fields = is_array($record) && is_array($record['fields'] ?? null)
-                    ? $record['fields']
-                    : [];
-
-                $groups[] = [
-                    'name' => $fields['Group Name'] ?? '',
-                    'id' => $fields['Group ID'] ?? '',
-                    'fnv' => $fields['FNV'] ?? '',
-                    'district' => $fields['District'] ?? '',
-                    'sub_district' => $fields['Sub District'] ?? '',
-                    'location' => $fields['Group Location'] ?? '',
-                    'type_format' => $fields['Type/Format'] ?? '',
-                    'address' => $fields['Group Address'] ?? '',
-                    'city' => $fields['Group City'] ?? '',
-                    'status' => $fields['Group Status'] ?? '',
-                ];
-            }
-
-            return rest_ensure_response($groups);
         },
         'permission_callback' => fn(WP_REST_Request $request) =>
             wp_verify_nonce($request->get_header('X-WP-Nonce'), 'wp_rest')
@@ -161,6 +224,9 @@ add_action('wp_enqueue_scripts', function () {
                 'location' => __('Location', 'cnca'),
                 'loading' => __('Searching groups...', 'cnca'),
                 'no_results' => __('No groups found.', 'cnca'),
+                'refresh_time_unavailable' => __('Refresh time unavailable.', 'cnca'),
+                /* translators: %s is the elapsed time since the last successful refresh. */
+                'refreshed_ago' => __('Last refreshed: %s ago', 'cnca'),
                 'empty_search' => __('Enter a search term.', 'cnca'),
                 'status' => __('Status', 'cnca'),
                 'sub_district' => __('Sub District', 'cnca'),

@@ -4,6 +4,32 @@
   const resultsContainer = document.getElementById("group-lookup-results");
   const submitButton = form.querySelector('input[type="submit"]');
   const searchInput = form.elements.search;
+  const fieldSelect = form.elements.field;
+  const searchQueryParams = {
+    group_name: "group_name",
+    city: "group_city",
+    location: "group_location",
+    address: "group_address",
+    district: "group_district",
+    group_id: "group_id",
+    fnv: "group_fnv",
+  };
+  const legacySearchQueryParams = {
+    group_lookup_name: "group_name",
+    group_lookup_city: "city",
+    group_lookup_location: "location",
+    group_lookup_address: "address",
+    group_lookup_district: "district",
+    group_lookup_id: "group_id",
+    group_lookup_fnv: "fnv",
+    name: "group_name",
+    city: "city",
+    location: "location",
+    address: "address",
+    district: "district",
+    id: "group_id",
+    fnv: "fnv",
+  };
   const maxSearchLength = cnca.group_lookup.max_search_length;
   const isSpanish = document.documentElement.lang.toLowerCase().startsWith("es");
   const spanishStatuses = new Map([
@@ -45,9 +71,12 @@
     searchInput.setCustomValidity("");
   });
 
-  form.addEventListener("submit", async (e) => {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
+    searchGroups(true);
+  });
 
+  async function searchGroups(updateUrl) {
     if (form.dataset.loading === "true") return;
 
     const search = searchInput.value.trim();
@@ -64,6 +93,21 @@
     }
 
     searchInput.setCustomValidity("");
+    if (updateUrl) {
+      const searchParam = searchQueryParams[fieldSelect.value];
+      if (searchParam) {
+        const url = new URL(window.location.href);
+        Object.values(searchQueryParams).forEach((param) => url.searchParams.delete(param));
+        Object.keys(legacySearchQueryParams).forEach((param) => url.searchParams.delete(param));
+        url.searchParams.delete("group_lookup_search");
+        url.searchParams.delete("group_lookup_field");
+        url.searchParams.set(searchParam, search);
+        if (url.href !== window.location.href) {
+          window.history.pushState(null, "", url);
+        }
+      }
+    }
+
     const loadingMessage = document.createElement("p");
     loadingMessage.className = "group-lookup-loading";
     loadingMessage.setAttribute("role", "status");
@@ -85,11 +129,27 @@
 
       if (!response.ok) throw new Error("Network response was not ok");
 
-      const groups = await response.json();
-      if (!Array.isArray(groups)) throw new Error("Invalid group lookup response");
+      const result = await response.json();
+      if (
+        !result ||
+        !Array.isArray(result.groups) ||
+        (result.refreshed_ago !== null && typeof result.refreshed_ago !== "string")
+      ) {
+        throw new Error("Invalid group lookup response");
+      }
+
+      const groups = result.groups;
+      const refreshedMessage = document.createElement("p");
+      refreshedMessage.className = "group-lookup-refresh";
+      refreshedMessage.textContent =
+        result.refreshed_ago === null
+          ? cnca.group_lookup.refresh_time_unavailable
+          : cnca.group_lookup.refreshed_ago.replace("%s", result.refreshed_ago);
 
       if (groups.length === 0) {
-        resultsContainer.textContent = cnca.group_lookup.no_results;
+        const noResultsMessage = document.createElement("p");
+        noResultsMessage.textContent = cnca.group_lookup.no_results;
+        resultsContainer.replaceChildren(noResultsMessage, refreshedMessage);
         return;
       }
 
@@ -138,7 +198,7 @@
         return article;
       });
 
-      resultsContainer.replaceChildren(...articles);
+      resultsContainer.replaceChildren(...articles, refreshedMessage);
     } catch (error) {
       console.error(error);
       resultsContainer.textContent = cnca.group_lookup.error;
@@ -147,5 +207,60 @@
       form.removeAttribute("aria-busy");
       submitButton.disabled = false;
     }
-  });
+  }
+
+  function restoreSearchFromUrl() {
+    const url = new URL(window.location.href);
+    const searchParam = Object.entries(searchQueryParams).find(([, param]) =>
+      url.searchParams.has(param)
+    );
+    const legacySearchParam = searchParam
+      ? null
+      : Object.entries(legacySearchQueryParams).find(([param]) => url.searchParams.has(param));
+    let search = null;
+    let field = "group_name";
+    let legacySearch = false;
+
+    if (searchParam) {
+      [field] = searchParam;
+      search = url.searchParams.get(searchParam[1]);
+    } else if (legacySearchParam) {
+      [field] = legacySearchParam;
+      field = legacySearchQueryParams[field];
+      search = url.searchParams.get(legacySearchParam[0]);
+      legacySearch = true;
+    } else {
+      search = url.searchParams.get("group_lookup_search");
+      if (search !== null) {
+        const legacyField = url.searchParams.get("group_lookup_field") || "group_name";
+        field = Object.prototype.hasOwnProperty.call(searchQueryParams, legacyField)
+          ? legacyField
+          : "group_name";
+        legacySearch = true;
+      }
+    }
+
+    if (search === null) {
+      form.reset();
+      searchInput.setCustomValidity("");
+      resultsContainer.replaceChildren();
+      return;
+    }
+
+    searchInput.value = search;
+    fieldSelect.value = field;
+    if (legacySearch) {
+      const cleanUrl = new URL(window.location.href);
+      Object.values(searchQueryParams).forEach((param) => cleanUrl.searchParams.delete(param));
+      Object.keys(legacySearchQueryParams).forEach((param) => cleanUrl.searchParams.delete(param));
+      cleanUrl.searchParams.delete("group_lookup_search");
+      cleanUrl.searchParams.delete("group_lookup_field");
+      cleanUrl.searchParams.set(searchQueryParams[field], search.trim());
+      window.history.replaceState(null, "", cleanUrl);
+    }
+    searchGroups(false);
+  }
+
+  window.addEventListener("popstate", restoreSearchFromUrl);
+  restoreSearchFromUrl();
 })();

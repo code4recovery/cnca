@@ -1,17 +1,15 @@
-# Copyright (C) 2026 Code for Recovery
-# This file is distributed under the same license as the CNCA theme.
 msgid ""
 msgstr ""
 "Project-Id-Version: CNCA 1.0.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/cnca\n"
-"POT-Creation-Date: 2026-11-19T21:18:19+00:00\n"
-"PO-Revision-Date: 2026-11-19 13:18-0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-19T21:18:19+00:00\n"
+"PO-Revision-Date: 2026-11-19 13:18-0800\n"
+"Language: es\n"
 "X-Generator: Poedit 3.10\n"
 "X-Domain: cnca\n"
 
@@ -35,19 +33,15 @@ msgstr "Code for Recovery"
 msgid "https://www.cnca06.org"
 msgstr "https://www.cnca06.org"
 
-#: 404.php:16
+#: 404.php:15
 msgid "Page not found"
 msgstr "Página no encontrada"
 
 #. translators: %s is a URL to the contact us page
-#: 404.php:20
+#: 404.php:19
 #, php-format
-msgid ""
-"No page was found at this address. Please try a search or <a "
-"href=\"%s\">contact the Web Committee</a>."
-msgstr ""
-"No se ha encontrado ninguna página en esta dirección. Intenta realizar una "
-"búsqueda o <a href=\"%s\">ponte en contacto con el Comité Web</a>."
+msgid "No page was found at this address. Please try a search or <a href=\"%s\">contact the Web Committee</a>."
+msgstr "No se ha encontrado ninguna página en esta dirección. Intenta realizar una búsqueda o <a href=\"%s\">ponte en contacto con el Comité Web</a>."
 
 #: header.php:23
 msgid "Menu"
@@ -57,94 +51,98 @@ msgstr "Menú"
 msgid "CNCA Logo"
 msgstr "Logotipo de la CNCA"
 
-#: inc/group-lookup.php:13 inc/group-lookup.php:136
+#: inc/group-lookup.php:180
+#: inc/group-lookup.php:221
 msgid "An error occurred while searching."
 msgstr "Se ha producido un error durante la búsqueda."
 
-#: inc/group-lookup.php:23 inc/group-lookup.php:29 inc/group-lookup.php:34
-#: inc/group-lookup.php:142
+#: inc/group-lookup.php:128
+#: inc/group-lookup.php:134
+#: inc/group-lookup.php:139
+#: inc/group-lookup.php:230
 msgid "Enter a search term."
 msgstr "Introduce un término de búsqueda."
 
 #. translators: %d is the maximum search length.
-#: inc/group-lookup.php:42 inc/group-lookup.php:147
+#: inc/group-lookup.php:147
+#: inc/group-lookup.php:235
 #, php-format
 msgid "Search terms must be %d characters or fewer."
 msgstr "Los términos de búsqueda deben tener %d caracteres o menos."
 
-#: inc/group-lookup.php:133
+#: inc/group-lookup.php:218
+#: inc/group-lookup.php:251
 msgid "Address"
 msgstr "Dirección"
 
-#: inc/group-lookup.php:134
+#: inc/group-lookup.php:219
+#: inc/group-lookup.php:249
 msgid "City"
 msgstr "Ciudad"
 
-#: inc/group-lookup.php:63
+#: inc/group-lookup.php:171
 msgid "Choose a valid search field."
 msgstr "Elige un campo de búsqueda válido."
 
-#: inc/group-lookup.php:135
+#: inc/group-lookup.php:220
+#: inc/group-lookup.php:252
 msgid "District"
 msgstr "Distrito"
 
-#: inc/group-lookup.php:137
+#: inc/group-lookup.php:222
+#: inc/group-lookup.php:254
 msgid "FNV (legacy number)"
 msgstr "FNV (número heredado)"
 
-#: inc/group-lookup.php:138
+#: inc/group-lookup.php:223
+#: inc/group-lookup.php:253
 msgid "Group ID"
 msgstr "ID Grupo"
 
-#: inc/group-lookup.php:179
+#: inc/group-lookup.php:248
 msgid "Group Name"
 msgstr "Nombre del grupo"
 
-#: inc/group-lookup.php:139
+#: inc/group-lookup.php:224
+#: inc/group-lookup.php:250
 msgid "Location"
 msgstr "Ubicación"
 
-#: inc/group-lookup.php:140
+#: inc/group-lookup.php:225
 msgid "Searching groups..."
 msgstr "Buscando grupos..."
 
-#: inc/group-lookup.php:141
+#: inc/group-lookup.php:226
 msgid "No groups found."
 msgstr "No se encontraron grupos."
 
-#: inc/group-lookup.php:143
+#: inc/group-lookup.php:231
 msgid "Status"
 msgstr "Estado"
 
-#: inc/group-lookup.php:144
+#: inc/group-lookup.php:232
 msgid "Sub District"
 msgstr "Subdistrito"
 
-#: inc/group-lookup.php:145
+#: inc/group-lookup.php:233
 msgid "Type/Format"
 msgstr "Tipo/Formato"
 
-#: inc/group-lookup.php:159
+#: inc/group-lookup.php:256
 msgid "Search groups..."
 msgstr "Buscar grupos de ofertas grupales..."
 
-#: inc/group-lookup.php:160
+#: inc/group-lookup.php:257
 msgid "Search"
 msgstr "Buscar"
 
-#: inc/group-lookup.php:178
+#: inc/group-lookup.php:247
 msgid "Search by"
 msgstr "Buscar por"
 
-#: inc/theme.php:103
-msgid ""
-"Serving Alcoholics Anonymous through the General Service structure. "
-"Supporting GSRs, DCMs, and Area trusted servants in carrying the message."
-msgstr ""
-"Al servicio de Alcohólicos Anónimos a través de la estructura de Servicios "
-"Generales. Apoyando a los representantes de los grupos locales (RSG), a los "
-"coordinadores de distrito (MCD) y a los servidores de confianza de área en "
-"la difusión del mensaje."
+#: inc/theme.php:98
+msgid "Serving Alcoholics Anonymous through the General Service structure. Supporting GSRs, DCMs, and Area trusted servants in carrying the message."
+msgstr "Al servicio de Alcohólicos Anónimos a través de la estructura de Servicios Generales. Apoyando a los representantes de los grupos locales (RSG), a los coordinadores de distrito (MCD) y a los servidores de confianza de área en la difusión del mensaje."
 
 #. translators: %s: search query.
 #: search.php:14
@@ -157,12 +155,8 @@ msgid "Nothing Found"
 msgstr "Sin resultados"
 
 #: search.php:40
-msgid ""
-"Sorry, but nothing matched your search terms. Please try again with some "
-"different keywords."
-msgstr ""
-"Lo sentimos, pero nada coincide con sus términos de búsqueda. Por favor, "
-"inténtelo de nuevo con algunas palabras clave diferentes."
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr "Lo sentimos, pero nada coincide con sus términos de búsqueda. Por favor, inténtelo de nuevo con algunas palabras clave diferentes."
 
 #: searchform.php:4
 msgid "Search for:"
@@ -172,11 +166,12 @@ msgstr "Buscar:"
 msgid "Search this site..."
 msgstr "Buscar en este sitio…"
 
-#~ msgid "FNV"
-#~ msgstr "FNV"
+#: inc/group-lookup.php:227
+msgid "Refresh time unavailable."
+msgstr "Hora de actualización no disponible."
 
+#. translators: %s is the elapsed time since the last successful refresh.
+#: inc/group-lookup.php:229
 #, php-format
-#~ msgid "&copy; %s California Northern Coastal Area 06. All rights reserved."
-#~ msgstr ""
-#~ "&copy; %s  Área costera del norte de California 06. Todos los derechos "
-#~ "reservados."
+msgid "Last refreshed: %s ago"
+msgstr "Última actualización: hace %s"

@@ -4,10 +4,15 @@
  * Author URI: https://www.cnca06.org
  * Description: A WordPress theme for California Northern Coastal Area 06
  * Text Domain: cnca
- * Version: 1.0.18
+ * Version: 1.0.19
  * Tested up to: 5.4
 */
 
+/*
+ * Style guidance:
+ * - Use rem for font sizes to support text scaling.
+ * - Keep text WCAG-accessible with sufficient contrast and readable sizing.
+ */
 :root {
   --primary-color: #1a75bc;
   --secondary-color: #f87436;
@@ -360,6 +365,11 @@ body {
 
       #group-lookup-results {
         margin-top: 2rem;
+        .group-lookup-refresh {
+          font-size: 0.875rem;
+          opacity: 0.75;
+        }
+
         .group-lookup-loading {
           align-items: center;
           display: flex;
