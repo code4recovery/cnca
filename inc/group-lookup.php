@@ -52,6 +52,11 @@ function cnca_group_lookup_sync_groups(): void
             $fields = is_array($record) && is_array($record['fields'] ?? null)
                 ? $record['fields']
                 : [];
+            $status = $fields['Group Status'] ?? '';
+            $statuses = is_array($status) ? $status : [$status];
+            if (in_array('Inactive', $statuses, true)) {
+                continue;
+            }
 
             $groups[] = [
                 'name' => $fields['Group Name'] ?? '',
@@ -63,7 +68,7 @@ function cnca_group_lookup_sync_groups(): void
                 'type_format' => $fields['Type/Format'] ?? '',
                 'address' => $fields['Group Address'] ?? '',
                 'city' => $fields['Group City'] ?? '',
-                'status' => $fields['Group Status'] ?? '',
+                'status' => $status,
             ];
         }
 
