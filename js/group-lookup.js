@@ -67,6 +67,21 @@
     return isSpanish ? spanishStatuses.get(status) ?? status : status;
   }
 
+  function appendHighlightedText(element, text, search) {
+    const regex = new RegExp(search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi");
+    let lastIndex = 0;
+
+    text.replace(regex, (match, offset) => {
+      element.append(document.createTextNode(text.slice(lastIndex, offset)));
+      const mark = document.createElement("mark");
+      mark.textContent = match;
+      element.append(mark);
+      lastIndex = offset + match.length;
+      return match;
+    });
+    element.append(document.createTextNode(text.slice(lastIndex)));
+  }
+
   searchInput.addEventListener("input", () => {
     searchInput.setCustomValidity("");
   });
@@ -153,45 +168,43 @@
         return;
       }
 
-      const regex = new RegExp(search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi");
       const articles = groups.map((group) => {
         const article = document.createElement("article");
         const name = displayValue(group.name);
-        let lastIndex = 0;
 
         if (name) {
           const heading = document.createElement("h3");
-          name.replace(regex, (match, offset) => {
-            heading.append(document.createTextNode(name.slice(lastIndex, offset)));
-            const mark = document.createElement("mark");
-            mark.textContent = match;
-            heading.append(mark);
-            lastIndex = offset + match.length;
-            return match;
-          });
-          heading.append(document.createTextNode(name.slice(lastIndex)));
+          if (fieldSelect.value === "group_name") {
+            appendHighlightedText(heading, name, search);
+          } else {
+            heading.textContent = name;
+          }
           article.append(heading);
         }
 
         const details = document.createElement("dl");
         [
-          [cnca.group_lookup.id, group.id],
-          [cnca.group_lookup.fnv, group.fnv],
-          [cnca.group_lookup.district, group.district],
+          [cnca.group_lookup.id, group.id, "group_id"],
+          [cnca.group_lookup.fnv, group.fnv, "fnv"],
+          [cnca.group_lookup.district, group.district, "district"],
           [cnca.group_lookup.sub_district, group.sub_district],
-          [cnca.group_lookup.location, group.location],
+          [cnca.group_lookup.location, group.location, "location"],
           [cnca.group_lookup.type_format, displayTypeFormat(group.type_format)],
-          [cnca.group_lookup.address, group.address],
-          [cnca.group_lookup.city, group.city],
+          [cnca.group_lookup.address, group.address, "address"],
+          [cnca.group_lookup.city, group.city, "city"],
           [cnca.group_lookup.status, displayStatus(group.status)],
-        ].forEach(([label, rawValue]) => {
+        ].forEach(([label, rawValue, searchField]) => {
           const value = displayValue(rawValue);
           if (!value) return;
 
           const term = document.createElement("dt");
           term.textContent = label;
           const description = document.createElement("dd");
-          description.textContent = value;
+          if (fieldSelect.value === searchField) {
+            appendHighlightedText(description, value, search);
+          } else {
+            description.textContent = value;
+          }
           details.append(term, description);
         });
         if (details.childElementCount) article.append(details);
