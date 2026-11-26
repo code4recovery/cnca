@@ -103,6 +103,34 @@ function cnca_group_lookup_contains(string $value, string $search): bool
     return stripos($value, $search) !== false;
 }
 
+function cnca_group_lookup_matches_district($value, string $district): bool
+{
+    if (is_array($value)) {
+        foreach ($value as $district_value) {
+            if (cnca_group_lookup_matches_district($district_value, $district)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    if (!is_scalar($value)) {
+        return false;
+    }
+
+    $value = trim((string) $value);
+    if ($value === '') {
+        return false;
+    }
+
+    if (function_exists('mb_stripos')) {
+        return mb_stripos($value, $district, 0, 'UTF-8') === 0;
+    }
+
+    return stripos($value, $district) === 0;
+}
+
 add_action('init', function () {
     if (!wp_next_scheduled(CNCA_GROUP_LOOKUP_SYNC_HOOK)) {
         $scheduled = wp_schedule_event(time(), 'hourly', CNCA_GROUP_LOOKUP_SYNC_HOOK);
@@ -119,6 +147,69 @@ add_action('switch_theme', function () {
 });
 
 add_action('rest_api_init', function () {
+    register_rest_route('cnca/v1', '/groups', [
+        'methods' => 'GET',
+        'callback' => function (WP_REST_Request $request) {
+            $district = $request->get_param('district');
+            if ($district === null) {
+                $districts = [];
+            } elseif (is_string($district)) {
+                $districts = [$district];
+            } elseif (is_array($district)) {
+                $districts = $district;
+            } else {
+                return new WP_Error(
+                    'invalid_group_district',
+                    __('Invalid district filter.', 'cnca'),
+                    ['status' => 400]
+                );
+            }
+
+            foreach ($districts as $district_prefix) {
+                if (!is_string($district_prefix)) {
+                    return new WP_Error(
+                        'invalid_group_district',
+                        __('Invalid district filter.', 'cnca'),
+                        ['status' => 400]
+                    );
+                }
+            }
+
+            $districts = array_values(array_filter(
+                array_map(fn($district_prefix) => trim(sanitize_text_field($district_prefix)), $districts),
+                'strlen'
+            ));
+
+            $groups = get_option(CNCA_GROUP_LOOKUP_CACHE, null);
+            if (!is_array($groups)) {
+                return new WP_Error(
+                    'group_data_unavailable',
+                    __('Group data is not available yet.', 'cnca'),
+                    ['status' => 503]
+                );
+            }
+
+            if ($districts !== []) {
+                $groups = array_filter($groups, function ($group) use ($districts) {
+                    if (!is_array($group)) {
+                        return false;
+                    }
+
+                    foreach ($districts as $district_prefix) {
+                        if (cnca_group_lookup_matches_district($group['district'] ?? '', $district_prefix)) {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                });
+            }
+
+            return rest_ensure_response(array_values($groups));
+        },
+        'permission_callback' => '__return_true',
+    ]);
+
     register_rest_route('cnca/v1', '/group-lookup', [
         'methods' => 'POST',
         'callback' => function (WP_REST_Request $request) {

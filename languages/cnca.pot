@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the CNCA theme.
 msgid ""
 msgstr ""
-"Project-Id-Version: CNCA 1.0.18\n"
+"Project-Id-Version: CNCA 1.0.19\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/theme/cnca\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-26T15:21:39+00:00\n"
+"POT-Creation-Date: 2026-11-26T15:48:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: cnca\n"
@@ -52,102 +52,110 @@ msgstr ""
 msgid "CNCA Logo"
 msgstr ""
 
-#: inc/group-lookup.php:128
-#: inc/group-lookup.php:134
-#: inc/group-lookup.php:139
-#: inc/group-lookup.php:230
+#: inc/group-lookup.php:157
+msgid "Invalid district filter."
+msgstr ""
+
+#: inc/group-lookup.php:170
+msgid "Group data is not available yet."
+msgstr ""
+
+#: inc/group-lookup.php:193
+#: inc/group-lookup.php:199
+#: inc/group-lookup.php:204
+#: inc/group-lookup.php:295
 msgid "Enter a search term."
 msgstr ""
 
 #. translators: %d is the maximum search length.
-#: inc/group-lookup.php:147
-#: inc/group-lookup.php:235
+#: inc/group-lookup.php:212
+#: inc/group-lookup.php:300
 #, php-format
 msgid "Search terms must be %d characters or fewer."
 msgstr ""
 
-#: inc/group-lookup.php:171
+#: inc/group-lookup.php:236
 msgid "Choose a valid search field."
 msgstr ""
 
-#: inc/group-lookup.php:180
-#: inc/group-lookup.php:221
+#: inc/group-lookup.php:245
+#: inc/group-lookup.php:286
 msgid "An error occurred while searching."
 msgstr ""
 
-#: inc/group-lookup.php:218
-#: inc/group-lookup.php:251
+#: inc/group-lookup.php:283
+#: inc/group-lookup.php:316
 msgid "Address"
 msgstr ""
 
-#: inc/group-lookup.php:219
-#: inc/group-lookup.php:249
+#: inc/group-lookup.php:284
+#: inc/group-lookup.php:314
 msgid "City"
 msgstr ""
 
-#: inc/group-lookup.php:220
-#: inc/group-lookup.php:252
+#: inc/group-lookup.php:285
+#: inc/group-lookup.php:317
 msgid "District"
 msgstr ""
 
-#: inc/group-lookup.php:222
-#: inc/group-lookup.php:254
+#: inc/group-lookup.php:287
+#: inc/group-lookup.php:319
 msgid "FNV (legacy number)"
 msgstr ""
 
-#: inc/group-lookup.php:223
-#: inc/group-lookup.php:253
+#: inc/group-lookup.php:288
+#: inc/group-lookup.php:318
 msgid "Group ID"
 msgstr ""
 
-#: inc/group-lookup.php:224
-#: inc/group-lookup.php:250
+#: inc/group-lookup.php:289
+#: inc/group-lookup.php:315
 msgid "Location"
 msgstr ""
 
-#: inc/group-lookup.php:225
+#: inc/group-lookup.php:290
 msgid "Searching groups..."
 msgstr ""
 
-#: inc/group-lookup.php:226
+#: inc/group-lookup.php:291
 msgid "No groups found."
 msgstr ""
 
-#: inc/group-lookup.php:227
+#: inc/group-lookup.php:292
 msgid "Refresh time unavailable."
 msgstr ""
 
 #. translators: %s is the elapsed time since the last successful refresh.
-#: inc/group-lookup.php:229
+#: inc/group-lookup.php:294
 #, php-format
 msgid "Last refreshed: %s ago"
 msgstr ""
 
-#: inc/group-lookup.php:231
+#: inc/group-lookup.php:296
 msgid "Status"
 msgstr ""
 
-#: inc/group-lookup.php:232
+#: inc/group-lookup.php:297
 msgid "Sub District"
 msgstr ""
 
-#: inc/group-lookup.php:233
+#: inc/group-lookup.php:298
 msgid "Type/Format"
 msgstr ""
 
-#: inc/group-lookup.php:247
+#: inc/group-lookup.php:312
 msgid "Search by"
 msgstr ""
 
-#: inc/group-lookup.php:248
+#: inc/group-lookup.php:313
 msgid "Group Name"
 msgstr ""
 
-#: inc/group-lookup.php:256
+#: inc/group-lookup.php:321
 msgid "Search groups..."
 msgstr ""
 
-#: inc/group-lookup.php:257
+#: inc/group-lookup.php:322
 msgid "Search"
 msgstr ""
 

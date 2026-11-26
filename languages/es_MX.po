@@ -51,92 +51,92 @@ msgstr "Menú"
 msgid "CNCA Logo"
 msgstr "Logotipo de la CNCA"
 
-#: inc/group-lookup.php:180
-#: inc/group-lookup.php:221
+#: inc/group-lookup.php:245
+#: inc/group-lookup.php:286
 msgid "An error occurred while searching."
 msgstr "Se ha producido un error durante la búsqueda."
 
-#: inc/group-lookup.php:128
-#: inc/group-lookup.php:134
-#: inc/group-lookup.php:139
-#: inc/group-lookup.php:230
+#: inc/group-lookup.php:193
+#: inc/group-lookup.php:199
+#: inc/group-lookup.php:204
+#: inc/group-lookup.php:295
 msgid "Enter a search term."
 msgstr "Introduce un término de búsqueda."
 
 #. translators: %d is the maximum search length.
-#: inc/group-lookup.php:147
-#: inc/group-lookup.php:235
+#: inc/group-lookup.php:212
+#: inc/group-lookup.php:300
 #, php-format
 msgid "Search terms must be %d characters or fewer."
 msgstr "Los términos de búsqueda deben tener %d caracteres o menos."
 
-#: inc/group-lookup.php:218
-#: inc/group-lookup.php:251
+#: inc/group-lookup.php:283
+#: inc/group-lookup.php:316
 msgid "Address"
 msgstr "Dirección"
 
-#: inc/group-lookup.php:219
-#: inc/group-lookup.php:249
+#: inc/group-lookup.php:284
+#: inc/group-lookup.php:314
 msgid "City"
 msgstr "Ciudad"
 
-#: inc/group-lookup.php:171
+#: inc/group-lookup.php:236
 msgid "Choose a valid search field."
 msgstr "Elige un campo de búsqueda válido."
 
-#: inc/group-lookup.php:220
-#: inc/group-lookup.php:252
+#: inc/group-lookup.php:285
+#: inc/group-lookup.php:317
 msgid "District"
 msgstr "Distrito"
 
-#: inc/group-lookup.php:222
-#: inc/group-lookup.php:254
+#: inc/group-lookup.php:287
+#: inc/group-lookup.php:319
 msgid "FNV (legacy number)"
 msgstr "FNV (número heredado)"
 
-#: inc/group-lookup.php:223
-#: inc/group-lookup.php:253
+#: inc/group-lookup.php:288
+#: inc/group-lookup.php:318
 msgid "Group ID"
 msgstr "ID Grupo"
 
-#: inc/group-lookup.php:248
+#: inc/group-lookup.php:313
 msgid "Group Name"
 msgstr "Nombre del grupo"
 
-#: inc/group-lookup.php:224
-#: inc/group-lookup.php:250
+#: inc/group-lookup.php:289
+#: inc/group-lookup.php:315
 msgid "Location"
 msgstr "Ubicación"
 
-#: inc/group-lookup.php:225
+#: inc/group-lookup.php:290
 msgid "Searching groups..."
 msgstr "Buscando grupos..."
 
-#: inc/group-lookup.php:226
+#: inc/group-lookup.php:291
 msgid "No groups found."
 msgstr "No se encontraron grupos."
 
-#: inc/group-lookup.php:231
+#: inc/group-lookup.php:296
 msgid "Status"
 msgstr "Estado"
 
-#: inc/group-lookup.php:232
+#: inc/group-lookup.php:297
 msgid "Sub District"
 msgstr "Subdistrito"
 
-#: inc/group-lookup.php:233
+#: inc/group-lookup.php:298
 msgid "Type/Format"
 msgstr "Tipo/Formato"
 
-#: inc/group-lookup.php:256
+#: inc/group-lookup.php:321
 msgid "Search groups..."
 msgstr "Buscar grupos de ofertas grupales..."
 
-#: inc/group-lookup.php:257
+#: inc/group-lookup.php:322
 msgid "Search"
 msgstr "Buscar"
 
-#: inc/group-lookup.php:247
+#: inc/group-lookup.php:312
 msgid "Search by"
 msgstr "Buscar por"
 
@@ -166,12 +166,20 @@ msgstr "Buscar:"
 msgid "Search this site..."
 msgstr "Buscar en este sitio…"
 
-#: inc/group-lookup.php:227
+#: inc/group-lookup.php:292
 msgid "Refresh time unavailable."
 msgstr "Hora de actualización no disponible."
 
 #. translators: %s is the elapsed time since the last successful refresh.
-#: inc/group-lookup.php:229
+#: inc/group-lookup.php:294
 #, php-format
 msgid "Last refreshed: %s ago"
 msgstr "Última actualización: hace %s"
+
+#: inc/group-lookup.php:157
+msgid "Invalid district filter."
+msgstr "El filtro de distrito no es válido."
+
+#: inc/group-lookup.php:170
+msgid "Group data is not available yet."
+msgstr "Los datos de los grupos aún no están disponibles."
