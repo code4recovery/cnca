@@ -295,9 +295,7 @@ add_action('rest_api_init', function () {
                     : null,
             ]);
         },
-        'permission_callback' => fn(WP_REST_Request $request) =>
-            wp_verify_nonce($request->get_header('X-WP-Nonce'), 'wp_rest')
-        ,
+        'permission_callback' => '__return_true',
     ]);
 });
 
@@ -309,7 +307,6 @@ add_action('wp_enqueue_scripts', function () {
         wp_enqueue_script(CNCA_GROUP_LOOKUP, get_template_directory_uri() . '/js/group-lookup.js', [], CNCA_VERSION, true);
         wp_localize_script(CNCA_GROUP_LOOKUP, 'cnca', [
             'root' => esc_url_raw(rest_url()),
-            'nonce' => wp_create_nonce('wp_rest'),
             'group_lookup' => [
                 'address' => __('Address', 'cnca'),
                 'city' => __('City', 'cnca'),

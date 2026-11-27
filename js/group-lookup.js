@@ -137,9 +137,7 @@
       const response = await fetch(`${cnca.root}cnca/v1/group-lookup`, {
         method: "POST",
         body: new FormData(form),
-        headers: {
-          "X-WP-Nonce": cnca.nonce,
-        },
+        credentials: "omit",
       });
 
       if (!response.ok) throw new Error("Network response was not ok");
